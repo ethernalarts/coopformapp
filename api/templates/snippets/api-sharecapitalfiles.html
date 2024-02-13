@@ -1,0 +1,25 @@
+
+<label class="block mb-2 text-md font-bold text-gray-500">
+    Attached files
+</label>
+
+<span class="mb-4 block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white">
+    <ol class="text-ellipsis overflow-hidden list-inside list-decimal">
+        {% for file in sharefiles %}
+            <li class="p-2 cursor-pointer text-blue-600 hover:text-blue-700 font-bold text-md w-auto">
+                <a target='blank' href="{{ file.attach_share_capital.url }}" 
+                    class="underline underline-offset-2">
+                    {{ file.attach_share_capital.name }}
+                </a>
+                <button type="button"
+                        hx-delete="{% url 'deletesharecapitalfile' pk=file.id coopform_id=coopform_id %}"
+                        hx-target="#sharecapital-files"
+                        {% comment %} hx-confirm="Are you sure?" {% endcomment %}
+                        class="cursor-pointer text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:outline-none 
+                                focus:ring-red-400 font-medium rounded-sm text-sm items-center ml-2 px-2 py-1">
+                        Remove
+                </button>
+            </li>   
+        {% endfor %}
+    </ol> 
+</span>

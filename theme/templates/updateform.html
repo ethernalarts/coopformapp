@@ -1,0 +1,1436 @@
+{% extends "base2.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>
+        Update Profile - {{ obj.society_name }}
+    </title>
+{% endblock %}
+
+{% block logo %}
+    <!-- Navbar Searchbar -->
+    {% include 'snippets/navbar-search-button.html' %}
+{% endblock %}
+
+{% block content %}
+        
+    <!-- Progress bar -->
+    <div class="progress-bar"></div>
+		
+    <!-- Form Errors messages --> 
+    {% for field in form %}
+        {% if field.errors %}
+            <div class="error-message relative bg-red-500 mx-auto p-6 mt-8 -mb-2 max-w-xl 
+                        text-center text-white rounded-none font-medium">                
+                <span class="w-full">{{ field.errors|striptags }}</span>
+
+                <!-- X button -->
+                <button type="button" 
+                    class="close-error-message absolute top-0 right-0 text-white bg-transparent hover:text-red-500
+                            hover:bg-white p-1.5 inline-flex items-center">
+                            
+                    <!-- X icon -->
+                    <svg class="w-6 h-6 text-bold" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+        {% endif %}
+    {% endfor %}			
+        
+    <!-- Outer Logo Container -->
+    <div class="mt-8 mb-4 flex items-center px-4 py-6 mx-auto bg-white lg:max-w-6xl rounded-sm shadow-md">
+
+        <!-- Logo Container -->
+        <div class="mx-auto lg:p-4 w-full md:w-[600px] lg:w-[850px]">  
+
+            <!-- Top Logo -->
+            <img src="{% static 'img/coopform-logo-1.svg' %}" class="h-full w-full" alt="EDSG-logo">
+        </div>
+    </div>
+
+    <!-- Container -->
+    <div id="updateform" class="mx-auto mt-6 pt-6 lg:pt-8 pb-8 max-w-full md:max-w-6xl 
+                bg-white shadow-md rounded-sm px-6 md:px-12">
+
+        <!-- Department of Cooperatives -->
+        <div>
+            <h2 class="text-center mx-auto text-[18px] md:text-[22px] lg:text-[24px] lg:w-[450px] 
+                        mt-4 md:w-[450px] w-[320px] p-2 bg-green-700 text-white font-bold">
+                DEPARTMENT OF COOPERATIVES
+            </h2>
+        </div>
+
+        <!-- Registration of Cooperatives -->
+        <div class="text-center mt-12">
+            <h2 class="text-[19px] md:text-[21px] lg:text-2xl font-extrabold text-green-700">
+                UPDATE: <u>{{ obj.society_name|upper }} COOPERATIVE SOCIETY</u>
+            </h2>
+        </div>
+
+        <!-- Notes and Instructions -->
+        <div class="mt-12 mx-auto text-left md:text-left font-bold text-red-600">
+            <p class="underline underline-red-600 underline-offset-2">NOTES AND INSTRUCTIONS</p>
+            <!-- outer list container -->
+            <ul class="ml-4">
+                <!-- inner list container -->
+                <ul class="list-square list-outside">
+                    <li>Fields marked with <span class="text-lg font-medium text-red-600">*</span> are required.</li>
+                    <li>The Society must have a minimum of 10 members.</li>
+                    <li>Uploaded documents must be in PDF, DOC (MS WORD), TXT, PNG or JPG format only.</li>
+                    <li>Review your entries thoroughly before submission.</li>
+                    <li>Phone Numbers should be in this format: 0800 123 4567.</li>
+                </ul>
+            </ul>                                
+        </div>
+    
+        <!-- Form -->
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Form Sections and Fields -->
+            <fieldset>
+
+                <!-- SOCIETY DETAILS -->
+                <div>
+
+                    <!-- HEADER - SOCIETY DETAILS -->
+                    <h2 class="mt-14 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        1.  Cooperative Society's Details
+                    </h2>
+
+                    <!-- Cooperative Society Details -->
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- Society Name -->
+                        <div>
+                            <label for="society_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.society_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {{ form.society_name|add_class:"text-md md:text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" }}
+                            {% if form.errors.society_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.society_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Society Category -->
+                        <div>
+                            <label for="society_category" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.society_category.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.society_category class+="cursor-pointer text-md md:text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.society_category %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.society_category }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY HOUSE NUMBER -->
+                        <div>
+                            <label for="society_house_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.society_house_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.society_house_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.society_house_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.society_house_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY STREET -->
+                        <div>
+                            <label for="society_street" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.society_street.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.society_street class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.society_street %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.society_street }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY VILLAGE/CITY -->
+                        <div>
+                            <label for="society_village_city" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.society_village_city.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.society_village_city class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.society_village_city %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.society_village_city }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY LGA OF ACTIVITIES -->
+                        <div>
+                            <label for="society_lga_of_activities" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.society_lga_of_activities.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.society_lga_of_activities class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.society_lga_of_activities %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.society_lga_of_activities }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOCIETY'S LOGO -->
+                <div>
+
+                    <!-- HEADER - SOCIETY'S LOGO -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        2.  Society's Logo
+                    </h2>
+                        
+                    <!-- If user uploaded am image -->
+                    {% if obj.society_logo %}
+
+                        <!-- Upload the Society's logo -->
+                        <div class="break-all grid gap-6 mt-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                            <!-- Society's Logo -->
+                            <div>
+                                <label for="society_logo" class="block mb-2 text-md font-bold text-gray-500">
+                                    {{ form.society_logo.label }}
+                                </label>
+                                {% render_field form.society_logo class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                                
+                                {% if form.errors.society_logo %}
+                                    <span class="text-red-600 font-medium">
+                                        {{ form.errors.society_logo }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Image preview -->
+                            <div>
+                                <img class="mt-4 w-32 h-32 rounded-sm shadow-sm m-auto md:mr-32 md:mr-48 md:ml-auto" 
+                                        src="{{ obj.society_logo.url }}" alt="{{ obj.society_name }} image">
+                            </div>
+                        </div>
+
+                        {% else %}  
+
+                            <!-- Upload the Society's logo -->
+                            <div class="grid gap-6 mt-1 grid-cols-1 md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                                <!-- Society's Logo -->
+                                <div>
+                                    <label for="society_logo" class="block mb-2 text-md font-bold text-gray-500">
+                                        {{ form.society_logo.label }}
+                                    </label>
+                                    {% render_field form.society_logo class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                                    
+                                    {% if form.errors.society_logo %}
+                                        <span class="text-red-600 font-medium">
+                                            {{ form.errors.society_logo }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    {% endif %}
+                </div>
+
+                <!-- CONTACT PERSONS -->
+                <div>
+
+                    <!-- HEADER - CONTACT PERSONS -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        3.  Contact Persons
+                    </h2>
+
+                    <!-- Contact Persons -->
+                    <div class="break-all grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- First Contact Name -->
+                        <div>
+                            <label for="first_contact_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_contact_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.first_contact_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                            {% if form.errors.first_contact_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_contact_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Contact Phone Number -->
+                        <div>
+                            <label for="first_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_contact_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.first_contact_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                            {% if form.errors.first_contact_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_contact_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Contact Email -->
+                        <div>
+                            <label for="first_contact_email" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_contact_email.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600"></span>
+                            </label>
+                            {% render_field form.first_contact_email class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.first_contact_email %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_contact_email }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Contact Name -->
+                        <div>
+                            <label for="second_contact_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_contact_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.second_contact_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                            {% if form.errors.second_contact_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_contact_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Second Contact Phone Number -->
+                        <div>
+                            <label for="second_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_contact_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.second_contact_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}
+                            {% if form.errors.second_contact_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_contact_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Contact Email -->
+                        <div>
+                            <label for="second_contact_email" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_contact_email.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600"></span>
+                            </label>
+                            {% render_field form.second_contact_email class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.second_contact_email %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_contact_email }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Contact Name -->
+                        <div>
+                            <label for="third_contact_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_contact_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.third_contact_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                            {% if form.errors.third_contact_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.third_contact_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Third Contact Phone Number -->
+                        <div>
+                            <label for="third_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_contact_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.third_contact_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.third_contact_phone_number %}
+                                <span class="text-red-600 font-medium">{{ form.errors.third_contact_phone_number }}</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Contact Email -->
+                        <div>
+                            <label for="third_contact_email" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_contact_email.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600"></span>
+                            </label>
+                            {% render_field form.third_contact_email class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.third_contact_email %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.third_contact_email }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PURPOSE OF REGISTRATION -->
+                <div>
+
+                    <!-- HEADER - PURPOSE OF REGISTRATION -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        4.  Purpose of Registration
+                    </h2>
+
+                    <!-- Purpose of Registration -->
+                    <div class="break-normal grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- First Purpose -->
+                        <div>
+                            <label for="first_purpose" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_purpose.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+
+                            {% render_field form.first_purpose class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            
+                            {% if form.errors.first_purpose %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_purpose }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Purpose -->
+                        <div>
+                            <label for="second_purpose" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_purpose.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            
+                            {% render_field form.second_purpose class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            
+                            {% if form.errors.second_purpose %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_purpose }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Purpose -->
+                        <div>
+                            <label for="third_purpose" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_purpose.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+
+                            {% render_field form.third_purpose class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            
+                            {% if form.errors.third_purpose %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.third_purpose }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NATURE OF REGISTRATION SOUGHT -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        5. Nature of Registration Sought
+                    </h2>
+
+                    <!-- Fields -->
+                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                        {% for radio in form.nature_registration %}
+                            {% if radio.choice_label == 'Limited Liability' %}
+                                <div class="flex inline-flex">                                        
+                                    <span id="{{ radio.id_for_label }}" class="w-6 h-6">{{ radio.tag }}</span>
+                                    <span class="align-middle block mb-2 text-lg font-bold text-gray-500">
+                                        {{ radio.choice_label }}
+                                    </span>
+                                </div>                                
+                                {% else %}
+                                    <div class="flex inline-flex">
+                                        <span id="{{ radio.id_for_label }}" class="w-6 h-6">{{ radio.tag }}</span>
+                                        <span class="align-middle block mb-2 text-lg font-bold text-gray-500">
+                                            {{ radio.choice_label }}
+                                        </span>
+                                    </div> 
+                            {% endif %}
+                        {% endfor %}
+                        <p class="text-sm text-gray-500">
+                            Please select one of these options
+                            <em class="ml-1 text-1xl font-medium text-red-600">*</em>
+                        </p>
+                        {% if form.errors.nature_registration %}
+                            <span class="text-red-600 font-medium">
+                                {{ form.errors.nature_registration }}
+                            </span>
+                        {% endif %}
+                    </fieldset>
+                </div>
+
+                <!-- ATTACH EVIDENCE OF SHARE CAPITAL/CONTRIBUTION BY EACH MEMBER -->
+                <div id="attach_share_capital" 
+                    class="{% if obj.nature_registration == 'Limited Liability' %} 
+                                block
+                                {% else %}
+                                    hidden
+                            {% endif %}">
+
+                    <!-- HEADER - ATTACH SHARE CAPITAL -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        5a. Attach evidence of share capital/contribution by each member
+                    </h2>
+
+                    <!-- Attach Share Capital -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- Attach Share Capital -->
+                        <div>                                                                
+                            {% if sharefiles %}
+                                <div id="sharecapital-files">
+                                    {% include 'snippets/sharecapitalfiles.html' %}
+                                </div>  
+                                {% else %}                              
+                                    <label class="block mb-2 text-md font-bold text-gray-500">
+                                        {{ form.attach_share_capital.label }}
+                                    </label>                                                                   
+                            {% endif %}
+
+                            {% render_field form.attach_share_capital class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %}  
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), PNG OR JPG formats only. You can attach multiple files
+                            </p>
+                        </div>
+                        {% if form.errors.attach_share_capital %}
+                            <span class="text-red-600 font-medium">{{ form.errors.attach_share_capital }}</span>
+                        {% endif %}                               
+                    </div>
+                </div>
+
+                <!-- DATES OF MEETINGS FOR SOCIETY FORMATION (ATTACH MINUTES OF TWO MEETINGS) -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        6.  Dates of Meeting for Society Formation (Attach minutes of two meetings)
+                    </h2>
+
+                    <!-- Attach minutes -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-2 lg:grid-cols-2 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- Date of first meeting -->
+                        <div>
+                            <label for="first_origin_meeting_date" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_origin_meeting_date.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.first_origin_meeting_date class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                  
+                            {% if form.errors.first_origin_meeting_date %}
+                                <span class="text-red-600 font-medium">{{ form.errors.first_origin_meeting_date }}</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Date of second meeting -->
+                        <div>
+                            <label for="second_origin_meeting_date" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_origin_meeting_date.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.second_origin_meeting_date class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.second_origin_meeting_date %}
+                                <span class="text-red-600 font-medium">{{ form.errors.second_origin_meeting_date }}</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Attach first minute -->
+                        <div>
+                            <label for="attach_first_minute" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.attach_first_minute.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.attach_first_minute class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), PNG OR JPG formats only
+                            </p>
+                            {% if form.errors.attach_first_minute %}
+                                <span class="text-red-600 font-medium">{{ form.errors.attach_first_minute }}</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Attach second minute -->
+                        <div>
+                            <label for="attach_second_minute" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.attach_second_minute.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.attach_second_minute class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            <p class="mt-1 text-sm text-gray-500">PDF, DOC (MS WORD), PNG OR JPG formats only</p>
+                            {% if form.errors.attach_second_minute %}
+                                <span class="text-red-600 font-medium">{{ form.errors.attach_second_minute }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10 MEMBERS IN THE SOCIETY -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        7.  Ten (10) Members in the Society
+                    </h2>
+
+                    <!-- 10 Members -->
+                    <div class="break-all grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- President's Name -->
+                        <div>
+                            <label for="president_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.president_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.president_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.president_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.president_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- President's Position -->
+                        <div>
+                            <label class="block mb-2 text-md font-bold text-gray-500">
+                                Position
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input type="text" placeholder="President" class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-400" disabled>
+                        </div>
+
+                        <!-- President's Phone Number -->
+                        <div>
+                            <label for="president_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.president_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.president_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}
+                            {% if form.errors.president_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.president_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Secretary's Name -->
+                        <div>
+                            <label for="secretary_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.secretary_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.secretary_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.secretary_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.secretary_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Secretary's Position -->
+                        <div>
+                            <label for="secretary_position" class="block mb-2 text-md font-bold text-gray-500">
+                                Position
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input type="text" placeholder="Secretary" class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-400" disabled>
+                        </div>
+
+                        <!-- Secretary's Phone Number -->
+                        <div>
+                            <label for="secretary_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.secretary_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.secretary_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.secretary_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.secretary_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Treasurer's Name -->
+                        <div>
+                            <label for="treasurer_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.treasurer_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.treasurer_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.treasurer_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.treasurer_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Treasurer's Position -->
+                        <div>
+                            <label for="treasurer_position" class="block mb-2 text-md font-bold text-gray-500">
+                                Position<span class="ml-1 text-1xl font-medium text-red-600">
+                                    <span class="ml-1 text-1xl font-medium text-red-600">
+                                        <em>*</em>
+                                    </span>
+                                </label>
+                            <input type="text" placeholder="Treasurer" class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-400" disabled>
+                        </div>
+
+                        <!-- Treasurer's Phone Number -->
+                        <div>
+                            <label for="treasurer_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.treasurer_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.treasurer_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.treasurer_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.treasurer_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Member's Name -->
+                        <div>
+                            <label for="fourth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fourth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fourth_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.fourth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fourth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Member's Position -->
+                        <div>
+                            <label for="fourth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fourth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fourth_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.fourth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fourth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Member's Phone Number -->
+                        <div>
+                            <label for="fourth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fourth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fourth_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.fourth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fourth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fifth Member's Name -->
+                        <div>
+                            <label for="fifth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fifth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fifth_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.fifth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fifth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fifth Member's Position -->
+                        <div>
+                            <label for="fifth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fifth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fifth_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.fifth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fifth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fifth Member's Phone Number -->
+                        <div>
+                            <label for="fifth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fifth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fifth_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.fifth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fifth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sixth Member's Name -->
+                        <div>
+                            <label for="sixth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.sixth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.sixth_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.sixth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.sixth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sixth Member's Position -->
+                        <div>
+                            <label for="sixth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.sixth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.sixth_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.sixth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.sixth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sixth Member's Phone Number -->
+                        <div>
+                            <label for="sixth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.sixth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.sixth_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.sixth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.sixth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Seventh Member's Name -->
+                        <div>
+                            <label for="seventh_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.seventh_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.seventh_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.seventh_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.seventh_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Seventh Member's Position -->
+                        <div>
+                            <label for="seventh_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.seventh_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.seventh_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.seventh_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.seventh_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Seventh Member's Phone Number -->
+                        <div>
+                            <label for="seventh_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.seventh_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.seventh_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.seventh_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.seventh_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Eight Member's Name -->
+                        <div>
+                            <label for="eighth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.eighth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.eighth_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.eighth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.eighth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Eight Member's Position -->
+                        <div>
+                            <label for="eighth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.eighth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.eighth_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.eighth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.eighth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Eight Member's Phone Number -->
+                        <div>
+                            <label for="eighth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.eighth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.eighth_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.eighth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.eighth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ninth Member's Name -->
+                        <div>
+                            <label for="ninth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.ninth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.ninth_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.ninth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.ninth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ninth Member's Position -->
+                        <div>
+                            <label for="ninth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.ninth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.ninth_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.ninth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.ninth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ninth Member's Phone Number -->
+                        <div>
+                            <label for="ninth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.ninth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.ninth_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.ninth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.ninth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Tenth Member's Name -->
+                        <div>
+                            <label for="tenth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.tenth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.tenth_member_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.tenth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.tenth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Tenth Member's Position -->
+                        <div>
+                            <label for="tenth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.tenth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.tenth_member_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.tenth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.tenth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Tenth Member's Phone Number -->
+                        <div>
+                            <label for="tenth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.tenth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.tenth_member_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.tenth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.tenth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRUSTEES -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        8. Four (4) Trustees
+                    </h2>
+
+                    <!-- 10 Members -->
+                    <div class="break-all grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- First Trustee's Name -->
+                        <div>
+                            <label for="first_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.first_trustee_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.first_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Trustee's Position -->
+                        <div>
+                            <label for="first_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.first_trustee_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.first_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Trustee's Phone Number -->
+                        <div>
+                            <label for="first_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.first_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.first_trustee_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.first_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.first_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Trustee's Name -->
+                        <div>
+                            <label for="second_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.second_trustee_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.second_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Trustee's Position -->
+                        <div>
+                            <label for="second_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.second_trustee_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.second_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Trustee's Phone Number -->
+                        <div>
+                            <label for="second_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.second_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.second_trustee_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.second_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.second_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Trustee's Name -->
+                        <div>
+                            <label for="third_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.third_trustee_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.third_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.third_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Trustee's Position -->
+                        <div>
+                            <label for="third_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.third_trustee_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.third_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.third_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Trustee's Phone Number -->
+                        <div>
+                            <label for="third_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.third_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.third_trustee_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.third_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.third_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Trustee's Name -->
+                        <div>
+                            <label for="fourth_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fourth_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fourth_trustee_name class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.fourth_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fourth_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Trustee's Position -->
+                        <div>
+                            <label for="fourth_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fourth_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fourth_trustee_position class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 bg-white placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}                                                
+                            {% if form.errors.fourth_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fourth_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Trustee's Phone Number -->
+                        <div>
+                            <label for="fourth_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.fourth_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            {% render_field form.fourth_trustee_phone_number class+="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" %}  
+                            {% if form.errors.fourth_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ form.errors.fourth_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BYE-LAWS? -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        9. Does the Society have Bye-Laws?
+                    </h2>
+
+                    <!-- Fields -->
+                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                        {% for radio in form.have_bye_laws %}
+                            {% if radio.choice_label == 'Yes' %}
+                                <div class="flex inline-flex">                                        
+                                    <span id="id_openbyelaw" class="w-6 h-6">{{ radio.tag }}</span>
+                                    <span class="align-middle block mb-2 text-lg font-bold text-gray-500">{{ radio.choice_label }}</span>
+                                </div>                                
+                                {% else %}
+                                    <div class="flex inline-flex">
+                                        <span id="id_closebyelaw" class="w-6 h-6">{{ radio.tag }}</span>
+                                        <span class="align-middle block mb-2 text-lg font-bold text-gray-500">{{ radio.choice_label }}</span>
+                                    </div> 
+                            {% endif %}
+                        {% endfor %}
+
+                        <p class="text-sm text-gray-500">
+                            Please select one of these options
+                            <em class="ml-1 text-1xl font-medium text-red-600">*</em>
+                        </p>
+                    </fieldset>
+                    {% if form.errors.have_bye_laws %}
+                        <span class="text-red-600 font-medium">
+                            {{ form.errors.have_bye_laws }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- ATTACH A COPY OF YOUR BYE-LAWS -->
+                <div id="attach_bye_laws" 
+                    class="{% if obj.have_bye_laws == 'Yes' %}
+                                block
+                                {% else %}
+                                    hidden
+                            {% endif %}">
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        9a. Attach a copy of your Bye-Laws
+                    </h2>
+
+
+                    <!-- Attach a copy of your Bye-Laws -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- Attach a copy of your Bye-Laws -->
+                        <div>
+                            <label for="attach_bye_laws" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ form.attach_bye_laws.label }}
+                            </label>
+                            {% render_field form.attach_bye_laws class+="cursor-pointer text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %}  
+                            
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), TXT, PNG OR JPG formats only
+                            </p>
+                        </div>
+
+                        {% if form.errors.attach_bye_laws %}
+                            <span class="text-red-600 font-medium">
+                                {{ form.errors.attach_bye_laws }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <p class="mx-auto text-center mt-12 md:mt-12 lg:mt-14 text-md font-bold text-green-600">
+                    Registered: {{ obj.created }}<br>
+                    Last Edited: {{ obj.updated }}
+                </p>
+            </fieldset>
+
+
+            <!-- Update Button -->
+            <div class="flex items-center mx-auto w-full md:w-[500px] space-x-4 justify-center mt-14">
+                <!-- Submit -->
+                <button type="submit" 
+                        class="w-full flex items-center mx-auto justify-center mt-6 mb-4 py-3 px-0 border border-transparent 
+                                text-md font-medium rounded-sm text-white bg-green-700 hover:bg-green-600 focus:outline-none 
+                                focus:ring-4 focus:ring-offset-2 focus:ring-green-600">
+                    <span class="inline-flex items-center">
+                        <svg class="-ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </span>
+                    Update
+                </button>
+
+                <!-- Back to form details -->
+                <a href="{{ obj.get_absolute_url }}" class="w-full">
+                    <button type="button" 
+                        class="group relative w-full flex items-center mx-auto justify-center mt-6 mb-4 py-3 px-4 border border-red-700 
+                                text-md font-medium rounded-sm text-white bg-red-700 hover:bg-red-600 focus:outline-none 
+                                focus:ring-4 focus:ring-offset-2 focus:ring-red-600 hover:border-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                            fill="currentColor" class="-ml-1 mr-2 h-5 w-5 text-white">
+                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 010 1.06l-6.22 6.22H21a.75.75 0 010 1.5H4.81l6.22 6.22a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0z" clip-rule="evenodd" />
+                        </svg>                                      
+                        Cancel
+                    </button>
+                </a>
+            </div>
+        </form>
+        <!-- End - Form -->
+
+        <!-- JavaScript to open ATTACH SHARE CAPITAL field -->
+        <script src="{% static 'js/attach_share_capital.js' %}"></script>
+
+        <!-- JavaScript to open ATTACH A COPY OF BYE-LAWS field -->
+        <script src="{% static 'js/attach_bye_laws.js' %}"></script>  
+
+    </div>
+    <!-- End - Container -->
+
+{% endblock %}

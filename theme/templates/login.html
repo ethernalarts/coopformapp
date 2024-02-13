@@ -1,0 +1,92 @@
+{% extends "base2.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>
+        Login
+    </title>
+{% endblock %}
+
+{% block logo %}
+	<!-- Navbar logo -->
+	<a href="https://mbtc.edostate.gov.ng" class="flex items-center">
+		<img src="{% static 'img/mbtc-logo-gray-800.svg' %}" class="md:h-14 h-14" alt="MBTC-logo">
+	</a>	
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-auto lg:py-0">
+            
+            <div class="w-full bg-gray-800 opacity-90 rounded-sm shadow-md mt-10 -mb-12 md:mt-[52px] sm:max-w-md xl:p-0">
+                <div class="p-8 pt-6 space-y-6 md:space-y-6">
+                    <h1 class="text-center text-4xl font-bold leading-tight tracking-tight text-slate-50">
+                        Login
+                    </h1>
+
+                    <!-- Login form -->
+                    <form method="POST" class="space-y-8" action="" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- hidden form field -->
+                        <input type="hidden" id="previous_page" name="previous_page" value="/previous/page/url">
+
+                        <!-- Flex container for email and password -->
+                        <div class="md:flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
+
+                            <!-- Username -->
+                            <div class="relative w-full">
+                                {% render_field form.username placeholder="username" class+='bg-white block font-medium border border-2 border-blue-600 text-gray-700 text-lg rounded-sm focus:border-blue-400 block p-6 py-5 ring-2 ring-blue-600 focus:bg-blue-400 w-full focus:ring-2 focus:outline-none focus:ring-blue-400' %}
+                            </div>
+
+                            <!-- Password -->
+                            <div class="relative w-full">
+                                {% render_field form.password placeholder="password" class+='bg-white block font-medium border border-2 border-blue-600 text-gray-700 text-lg rounded-sm focus:border-blue-400 block p-6 py-5 ring-2 ring-blue-600 focus:bg-blue-400 w-full focus:ring-2 focus:outline-none focus:ring-blue-400' %}
+                                
+                                <!-- X (reset) button -->
+                                <button type="reset" 
+                                    class="absolute top-5 right-2 text-white bg-transparent hover:text-blue-600 
+                                            text-sm p-1.5 ml-auto inline-block items-center align-middle">
+                                    <svg class="w-6 h-6 text-bold" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="text-center">
+                            <button type="submit" 
+                                    class="w-full text-white bg-blue-700 rounded-sm border border-2 border-blue-700 
+                                            hover:bg-blue-800 focus:ring-4 hover:border-blue-800 px-5 py-4
+                                            focus:outline-none focus:ring-blue-600 font-medium">
+                                    
+                                    <!-- Login icon -->
+                                    <span 
+                                        class="inline-flex items-center">
+                                        <svg 
+                                            class="w-7 h-7 mt-1 text-white font-extrabold" 
+                                            aria-hidden="true" 
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" 
+                                            viewBox="0 0 18 15">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 7.5h11m0 0L8 3.786M12 7.5l-4 3.714M12 1h3c.53 0 1.04.196 1.414.544.375.348.586.82.586 1.313v9.286c0 .492-.21.965-.586 1.313A2.081 2.081 0 0 1 15 14h-3"/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </div>                        
+                    </form>
+
+                    <!-- JS to insert previous page url in hidden input field -->
+                    <script>
+                        prev = document.getElementById("previous_page");
+                        prev.value = document.referrer;
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+  <title>How to Register a Cooperative</title>
+{% endblock %}
+
+<!-- Navbar logo -->
+{% block logo %}
+	<a href="https://mbtc.edostate.gov.ng" class="flex items-center">
+		<img src="{% static 'img/mbtc-logo-gray-800.svg' %}" class="md:h-14 h-14" alt="MBTC-logo">
+	</a>	
+{% endblock %}
+
+{% block content %}
+
+    <!-- Search bar -->
+    {% comment %} {% include 'snippets/searchbar.html' %} {% endcomment %}
+
+    <!-- Body Container -->
+    <div class="mx-auto mt-12 py-10 max-w-full md:max-w-4xl bg-white shadow-md rounded-sm px-12 md:px-14">
+
+        <!-- Registration of Cooperatives -->
+        <div class="text-center">
+            <h2 class="text-xl md:text-2xl font-extrabold text-green-800 underline underline-offset-4">How to Register a Cooperative</h2>
+            <ol class="mt-8 list-decimal text-[20px] md:text-xl font-normal text-green-700">
+                <li class="">
+                    Pay a non-refundable fee of N10,000 (Ten Thousand Naira) only into the bank account stated below with the Cooperative's name
+                    as the Depositor's Name or Narration/Description (if paying via Banking Mobile App): 
+                    <br><br>
+                    <b>Bank: First Bank of Nigeria, <br>
+                       Account Number: 0012345678, <br>
+                       Account Name: MBTC Department of Cooperatives
+                    </b>
+                </li>
+                <li class="mt-6 md:mt-8">
+                    Send an email with <b>"[COOPERATIVE NAME] REGISTRATION FEE PAYMENT"</b> as the subject and the payment 
+                    receipt (bank teller or mobile app receipt) as an attachment to <b><i>email@edostate.gov.ng</i></b>
+                </li>
+                <li class="mt-6 md:mt-8">
+                    Upon receipt of the email and verification of payment, login details will then be sent to you to proceed with the registration 
+                    <a class="font-bold underline underline-offset-4" href="{% url 'register' %}" target="_blank">here</a>
+                </li>
+                <li class="mt-6 md:mt-8">
+                    Please note that your login details is valid for <b>ONLY ONE SESSION.</b> What this means is that you can only use it to register 
+                    one Cooperative Society. The moment you click <b>"Finish"</b> it becomes invalid and it's no longer reusable. Should you want to make changes 
+                    thereafter, you'll need to contact the Ministry.
+                </li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- End - Body Container -->
+
+{% endblock %}

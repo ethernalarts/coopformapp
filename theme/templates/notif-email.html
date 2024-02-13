@@ -1,0 +1,23 @@
+<!doctype html>
+
+<html dir="ltr">  
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">       
+    </head>
+
+    <!-- Body -->
+    <body style="font-family: Lato, Tahoma, Arial, Helvetica, sans-serif; font-size: 1.3em; font-weight: 400">
+        <p>This is to notify you that a new Cooperative Society has been registered on the website.</p>
+
+        <p>
+            <b>NAME:</b> {{ society_name|upper }} COOPERATIVE SOCIETY<br>
+            <b>CATEGORY:</b> {{ category|upper }}<br>
+            <b>LGA:</b> {{ lga|upper }}<br>
+            <b>REGISTERED ON:</b> {{ created }}
+        </p>
+
+        <p>Visit here for more details: {{ form_url }}</p>    
+    </body>
+</html>

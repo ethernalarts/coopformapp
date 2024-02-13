@@ -1,0 +1,1943 @@
+{% extends "api-base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>
+        Online Cooperatives Registration Form
+    </title>
+{% endblock %}
+
+<!-- Navbar Searchbar -->
+{% block logo %}    
+    {% include 'snippets/api-navbar-searchbar.html' %}
+{% endblock %}
+
+{% block content %}
+        
+    <!-- Progress bar -->
+    <div class="progress-bar"></div>
+		
+    <!-- Form Errors messages --> 
+    {% for field in form %}
+        {% if field.errors %}
+            <div class="error-message relative bg-red-500 mx-auto p-6 mt-8 -mb-2 max-w-xl 
+                        text-center text-white rounded-none font-medium">                
+                <span class="w-full">{{ field.errors|striptags }}</span>
+
+                <!-- X button -->
+                <button type="button" 
+                    class="close-error-message absolute top-0 right-0 text-white bg-transparent hover:text-red-500
+                            hover:bg-white p-1.5 inline-flex items-center">
+                            
+                    <!-- X icon -->
+                    <svg class="w-6 h-6 text-bold" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+        {% endif %}
+    {% endfor %}
+        
+    <!-- Outer Logo Container -->
+    <div class="mt-8 mb-4 flex items-center px-4 py-6 mx-auto bg-white lg:max-w-6xl rounded-sm shadow-md">
+
+        <!-- Logo Container -->
+        <div class="mx-auto lg:p-4 w-full md:w-[600px] lg:w-[800px]">
+
+            <!-- Top Logo -->
+            <img src="{% static 'img/coopform-logo-1.svg' %}" class="h-full w-full" alt="EDSG-logo">
+        </div>
+    </div>
+
+    <!-- Body Container -->
+    <div id="registerform" class="mx-auto mt-6 pt-6 md:pt-8 pb-8 max-w-full md:max-w-6xl 
+                                  bg-white shadow-md rounded-sm px-6 md:px-12">
+
+        <!-- Department of Cooperatives -->
+        <div>
+            <h2 class="mt-4 text-center mx-auto text-[19px] md:text-[24px] w-[340px] 
+                        md:w-[450px] py-3 px-4 bg-green-700 text-white font-bold">
+                DEPARTMENT OF COOPERATIVES
+            </h2>
+        </div>
+
+        <!-- Registration of Cooperatives -->
+        <div class="text-center mt-10 md:mt-14">
+            <h2 class="text-[20px] md:text-2xl font-extrabold text-green-700">
+                ONLINE REGISTRATION OF COOPERATIVES
+            </h2>
+            <p class="text-md md:text-lg lg:text-lg font-bold text-green-700">
+                (Cap C16, Vol. 2 Sections 3-9 laws of Edo State)
+            </p>
+        </div>
+
+        <!-- Notes and Instructions -->
+        <div class="mt-14 mx-auto text-left md:text-left font-bold text-red-600">
+            <p class="underline underline-red-600 underline-offset-2">NOTES AND INSTRUCTIONS</p>
+            <!-- outer list container -->
+            <ul class="ml-4">
+                <!-- inner list container -->
+                <ul class="list-square list-outside">
+                    <li>Fields marked with <span class="text-lg font-medium text-red-600">*</span> are required.</li>
+                    <li>The Society must have a minimum of 10 members.</li>
+                    <li>Uploaded documents must be in PDF, DOC (MS WORD), TXT, PNG or JPG format only.</li>
+                    <li>Review your entries thoroughly before submission.</li>
+                    <li>Phone Numbers should be in this format: 0800 123 4567.</li>
+                </ul>
+            </ul>                                
+        </div>
+    
+        <!-- Form -->
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Form Sections and Fields -->
+            <fieldset>
+
+                <!-- SOCIETY DETAILS -->
+                <div>
+
+                    <!-- HEADER - SOCIETY DETAILS -->
+                    <h2 class="mt-14 text-[18px] font-bold p-2 bg-green-700 text-white">
+                        1.  Cooperative Society's Details
+                    </h2>
+
+                    <!-- Cooperative Society Details -->
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- Society Name -->
+                        <div>
+                            <label for="society_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.society_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="society_name"
+                                type="text" 
+                                name="society_name" 
+                                value="{{ request.data.society_name }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 
+                                        placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.society_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Society Category -->
+                        <div>
+                            <label for="society_category" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.society_category.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <select name="society_category" class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">                                
+                                {% for category in tag.society_category.choices %}
+                                    <option value="{{ category }}"
+                                        {% if request.data.society_category == category %} 
+                                            selected 
+                                        {% endif %}>
+                                        {{ category }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {% if errors.society_category %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_category }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY HOUSE NUMBER -->
+                        <div>
+                            <label for="society_house_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.society_house_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="society_house_number" 
+                                type="text" 
+                                name="society_house_number" 
+                                value="{{ request.data.society_house_number }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.society_house_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_house_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY STREET -->
+                        <div>
+                            <label for="society_street" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.society_street.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="society_street" 
+                                type="text" 
+                                name="society_street" 
+                                value="{{ request.data.society_street }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.society_street %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_street }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY VILLAGE/CITY -->
+                        <div>
+                            <label for="society_village_city" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.society_village_city.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="society_village_city" 
+                                type="text" 
+                                name="society_village_city" 
+                                value="{{ request.data.society_village_city }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.society_village_city %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_village_city }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- SOCIETY LGA OF ACTIVITIES -->
+                        <div>
+                            <label for="society_lga_of_activities" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.society_lga_of_activities.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <select name="society_lga_of_activities" class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">                                
+                                {% for lga in tag.society_lga_of_activities.choices %}
+                                    <option value="{{ lga }}"
+                                        {% if request.data.society_lga_of_activities == lga %} 
+                                             selected
+                                        {% endif %}>
+                                        {{ lga }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {% if errors.society_lga_of_activities %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_lga_of_activities }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOCIETY'S LOGO -->
+                <div>
+
+                    <!-- HEADER - SOCIETY'S LOGO -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                        2.  Society's Logo
+                    </h2>
+
+                    <!-- Upload the Society's logo -->
+                    <div class="grid gap-6 mt-1 grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- Society's Logo -->
+                        <div>
+                            <label for="society_logo" class="block mb-2 text-md font-bold text-gray-500">
+                                Upload {{ tag.society_logo.label }}
+                            </label>
+
+                            <input 
+                                type="file" 
+                                name="society_logo" 
+                                accept="image/*" 
+                                value="{{ request.files.society_logo }}" 
+                                style="cursor:pointer" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 
+                                        border border-2 border-gray-300 placeholder-gray-500 text-gray-600 
+                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"> 
+                            
+                            <p class="mt-1 text-sm text-gray-500">
+                                Please upload the society's logo if available
+                            </p>
+
+                            {% if errors.society_logo %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.society_logo }}
+                                </span>
+                            {% endif %}
+                        </div>                        
+                    </div>
+                </div>
+
+                <!-- CONTACT PERSONS -->
+                <div>
+
+                    <!-- HEADER - CONTACT PERSONS -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        3.  Contact Persons
+                    </h2>
+
+                    <!-- Contact Persons -->
+                    <div class="break-all grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- First Contact Name -->
+                        <div>
+                            <label for="first_contact_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_contact_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="first_contact_name" 
+                                type="text" 
+                                name="first_contact_name" 
+                                value="{{ request.data.first_contact_name }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.first_contact_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_contact_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Contact Phone Number -->
+                        <div>
+                            <label for="first_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_contact_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="first_contact_phone_number" 
+                                type="tel" 
+                                name="first_contact_phone_number" 
+                                value="{{ request.data.first_contact_phone_number }}" 
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.first_contact_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_contact_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Contact Email -->
+                        <div>
+                            <label for="first_contact_email" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_contact_email.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600"></span>
+                            </label>
+                            <input 
+                                id="first_contact_email"   
+                                type="email" 
+                                name="first_contact_email" 
+                                value="{{ request.data.first_contact_email }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.first_contact_email %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_contact_email }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Contact Name -->
+                        <div>
+                            <label for="second_contact_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_contact_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="second_contact_name" 
+                                type="text" 
+                                name="second_contact_name" 
+                                value="{{ request.data.second_contact_name }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.second_contact_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_contact_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Second Contact Phone Number -->
+                        <div>
+                            <label for="second_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_contact_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="second_contact_phone_number" 
+                                type="tel" 
+                                name="second_contact_phone_number" 
+                                value="{{ request.data.second_contact_phone_number }}" 
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.second_contact_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_contact_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Contact Email -->
+                        <div>
+                            <label for="second_contact_email" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_contact_email.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600"></span>
+                            </label>
+                            <input 
+                                id="second_contact_email"  
+                                type="email" 
+                                name="second_contact_email" 
+                                value="{{ request.data.second_contact_email }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.second_contact_email %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_contact_email }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Contact Name -->
+                        <div>
+                            <label for="third_contact_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_contact_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="third_contact_name" 
+                                type="text" 
+                                name="third_contact_name" 
+                                value="{{ request.data.third_contact_name }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.third_contact_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.third_contact_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Third Contact Phone Number -->
+                        <div>
+                            <label for="third_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_contact_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="third_contact_name" 
+                                type="tel" 
+                                name="third_contact_phone_number" 
+                                value="{{ request.data.third_contact_phone_number }}" 
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.third_contact_phone_number %}
+                                <span class="text-red-600 font-medium">{{ errors.third_contact_phone_number }}</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Contact Email -->
+                        <div>
+                            <label for="third_contact_email" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_contact_email.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600"></span>
+                            </label>
+                            <input 
+                                id="third_contact_email" 
+                                type="email" 
+                                name="third_contact_email" 
+                                value="{{ request.data.third_contact_email }}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 text-gray-600 focus:outline-none focus:ring-indigo-500 
+                                        focus:border-indigo-500 focus:z-10">
+                            {% if errors.third_contact_email %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.third_contact_email }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PURPOSE OF REGISTRATION -->
+                <div>
+
+                    <!-- HEADER - PURPOSE OF REGISTRATION -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        4.  Purpose of Registration
+                    </h2>
+
+                    <!-- Purpose of Registration -->
+                    <div class="break-normal grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- First Purpose -->
+                        <div>
+                            <label for="first_purpose" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_purpose.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <textarea id="first_purpose" name="first_purpose" rows="3" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 
+                                       text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">{{ request.data.first_purpose }}</textarea>
+                            {% if errors.first_purpose %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_purpose }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Purpose -->
+                        <div>
+                            <label for="second_purpose" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_purpose.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>                            
+                            <textarea id="second_purpose" name="second_purpose" rows="3" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 
+                                       text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">{{ request.data.second_purpose }}</textarea>                            
+                            {% if errors.second_purpose %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_purpose }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Purpose -->
+                        <div>
+                            <label for="third_purpose" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_purpose.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <textarea id="third_purpose" name="third_purpose" rows="3" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 border-gray-300 placeholder-gray-500 
+                                       text-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">{{ request.data.third_purpose }}</textarea>                         
+                            {% if errors.third_purpose %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.third_purpose }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NATURE OF REGISTRATION SOUGHT -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        5. Nature of Registration Sought
+                    </h2>
+
+                    <!-- Fields -->
+                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">
+                        {% for registration in tag.nature_registration.choices %}                            
+                            <div class="flex inline-flex">
+                                <span class="w-6 h-6"
+                                    {% if registration == 'Limited Liability' %} 
+                                        id="id_nature_registration_0"
+                                        {% else %}
+                                            id="id_nature_registration_1"
+                                    {% endif %}>
+
+                                    <input type="radio" id="nature_registration" style="cursor:pointer" name="nature_registration"
+                                        value="{{ registration }}"
+                                        {% if request.data.nature_registration == registration %}
+                                            checked
+                                            {% elif registration == "Without Limited Liability" %}
+                                                checked
+                                        {% endif %}>   
+                                </span>
+                                <label for="nature_registration" class="block mb-2 text-lg font-bold text-gray-500">
+                                    {{ registration }}
+                                </label>
+                            </div>
+                        {% endfor %}                        
+                        
+                        <p class="text-sm text-gray-500">
+                            Please select one of these options <em class="ml-1 text-1xl font-medium text-red-600">*</em>
+                        </p>
+                        {% if errors.nature_registration %}
+                            <span class="text-red-600 font-medium">
+                                {{ errors.nature_registration }}
+                            </span>
+                        {% endif %}
+                    </fieldset>
+                </div>
+
+                <!-- ATTACH EVIDENCE OF SHARE CAPITAL/CONTRIBUTION BY EACH MEMBER -->
+                <div id="attach_share_capital" class="hidden">
+
+                    <!-- HEADER - ATTACH SHARE CAPITAL -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        5a. Attach evidence of share capital/contribution by each member
+                    </h2>
+
+                    <!-- Attach Share Capital -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                        
+                        <!-- Attach Share Capital -->
+                        <div>  
+                            <label for="attach_share_capital" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.attach_share_capital.label }}
+                            </label>
+
+                            <input 
+                                id="attach_share_capital" 
+                                type="file" 
+                                name="attach_share_capital" 
+                                value="{{ request.data.attach_share_capital }}" 
+                                style="cursor:pointer" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500" multiple>  
+                            
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), TXT, PNG OR JPG formats only. You can attach multiple files
+                            </p>
+                        </div>
+                        {% if errors.attach_share_capital %}
+                            <span class="text-red-600 font-medium">
+                                {{ errors.attach_share_capital }}
+                            </span>
+                        {% endif %}                               
+                    </div>
+                </div>
+
+                <!-- DATES OF MEETINGS FOR SOCIETY FORMATION (ATTACH MINUTES OF TWO MEETINGS) -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        6.  Dates of Meeting for Society Formation (Attach minutes of two meetings)
+                    </h2>
+
+                    <!-- Attach minutes -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-2 lg:grid-cols-2 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- Date of first meeting -->
+                        <div>
+                            <label for="first_origin_meeting_date" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_origin_meeting_date.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+
+                            <input 
+                                id="first_origin_meeting_date" 
+                                style="cursor:pointer" 
+                                type="date" 
+                                name="first_origin_meeting_date"
+                                {% if request.data.first_origin_meeting_date %}
+                                    value="{{ request.data.first_origin_meeting_date }}"
+                                    {% else %}
+                                        value="{{ defaultdate }}"
+                                {% endif %}
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 
+                                        border border-2 border-gray-300 placeholder-gray-500 text-gray-600 
+                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">  
+                            {% if errors.first_origin_meeting_date %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_origin_meeting_date }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Date of second meeting -->
+                        <div>
+                            <label for="second_origin_meeting_date" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_origin_meeting_date.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+
+                            <input 
+                                id="second_origin_meeting_date"
+                                style="cursor:pointer" 
+                                type="date" 
+                                name="second_origin_meeting_date" 
+                                {% if request.data.second_origin_meeting_date %}
+                                    value="{{ request.data.second_origin_meeting_date }}"
+                                    {% else %}
+                                        value="{{ defaultdate }}"
+                                {% endif %}
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 
+                                        border border-2 border-gray-300 placeholder-gray-500 text-gray-600 
+                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            {% if errors.second_origin_meeting_date %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_origin_meeting_date }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Attach first minute -->
+                        <div>
+                            <label for="attach_first_minute" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.attach_first_minute.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+
+                            {% comment %} {% if files.attach_first_minute %}
+                                <span>                                
+                                    File in memory: 
+                                    <span style="cursor:pointer" class="text-blue-600 font-bold underline underline-offset-2">
+                                        {{ files.attach_first_minute }}
+                                    </span>
+                                </span>
+                            {% endif %} {% endcomment %}
+
+                            <input 
+                                id="attach_first_minute"
+                                type="file"  
+                                name="attach_first_minute" 
+                                value="{{ request.files.attach_first_minute }}"
+                                style="cursor:pointer" 
+                                accept=".pdf, .doc, .docx, .txt, images/*"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 
+                                        border border-2 border-gray-300 placeholder-gray-500 text-gray-600 
+                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />  
+                            
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), TXT, PNG OR JPG formats only
+                            </p>
+
+                            {% if errors.attach_first_minute %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.attach_first_minute }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Attach second minute -->
+                        <div>
+                            <label for="attach_second_minute" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.attach_second_minute.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+
+                            <input 
+                                id="attach_second_minute"
+                                type="file" 
+                                name="attach_second_minute" 
+                                value="{{ request.files.attach_second_minute }}"
+                                style="cursor:pointer" 
+                                accept=".pdf, .doc, .docx, .txt, images/*"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 
+                                        border border-2 border-gray-300 placeholder-gray-500 text-gray-600 
+                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">  
+                            
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), TXT, PNG OR JPG formats only
+                            </p>
+
+                            {% if errors.attach_second_minute %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.attach_second_minute }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10 MEMBERS IN THE SOCIETY -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        7.  Ten (10) Members in the Society
+                    </h2>
+
+                    <!-- 10 Members -->
+                    <div class="break-all grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- President's Name -->
+                        <div>
+                            <label for="president_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.president_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="president name"
+                                type="text" 
+                                name="president_name" 
+                                value="{{ request.data.president_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border 
+                                        border-2 border-gray-300 placeholder-gray-500 text-gray-600 
+                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">  
+                            {% if errors.president_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.president_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- President's Position -->
+                        <div>
+                            <label for="president_position`" class="block mb-2 text-md font-bold text-gray-500">
+                                Position
+                            </label>
+                            <input 
+                                id="president_position"
+                                type="text" 
+                                placeholder="President" 
+                                name="president_position" 
+                                value="President" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-400 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500" disabled>
+                        </div>
+
+                        <!-- President's Phone Number -->
+                        <div>
+                            <label for="president_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.president_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="president_phone_number"
+                                type="tel" 
+                                name="president_phone_number" 
+                                value="{{ request.data.president_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.president_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.president_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Secretary's Name -->
+                        <div>
+                            <label for="secretary_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.secretary_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="secretary_name"
+                                type="text" 
+                                name="secretary_name" 
+                                value="{{ request.data.secretary_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.secretary_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.secretary_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Secretary's Position -->
+                        <div>
+                            <label for="secretary_position" class="block mb-2 text-md font-bold text-gray-500">
+                                Position
+                            </label>
+                            <input 
+                                id="secretary_position"
+                                type="text" 
+                                placeholder="Secretary" 
+                                name="secretary_position" 
+                                value="Secretary" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-400 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500" disabled>
+                        </div>
+
+                        <!-- Secretary's Phone Number -->
+                        <div>
+                            <label for="secretary_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.secretary_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="secretary_phone_number"
+                                type="tel" 
+                                name="secretary_phone_number" 
+                                value="{{ request.data.secretary_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.secretary_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.secretary_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Treasurer's Name -->
+                        <div>
+                            <label for="treasurer_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.treasurer_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="treasurer_name"
+                                type="text" 
+                                name="treasurer_name" 
+                                value="{{ request.data.treasurer_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.treasurer_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.treasurer_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Treasurer's Position -->
+                        <div>
+                            <label for="treasurer_position" class="block mb-2 text-md font-bold text-gray-500">
+                                Position
+                            </label>
+                            <input 
+                                id="treasurer_position" 
+                                type="text" 
+                                placeholder="Treasurer" 
+                                name="treasurer_position" 
+                                value="Treasurer" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-400 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500" disabled>
+                        </div>
+
+                        <!-- Treasurer's Phone Number -->
+                        <div>
+                            <label for="treasurer_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.treasurer_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="treasurer_phone_number"
+                                type="tel" 
+                                name="treasurer_phone_number" 
+                                value="{{ request.data.treasurer_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            {% if errors.treasurer_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.treasurer_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Member's Name -->
+                        <div>
+                            <label for="fourth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fourth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fourth_member_name"
+                                type="text" 
+                                name="fourth_member_name" 
+                                value="{{ request.data.fourth_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fourth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fourth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Member's Position -->
+                        <div>
+                            <label for="fourth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fourth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fourth_member_position" 
+                                type="text" 
+                                name="fourth_member_position" 
+                                value="{{ request.data.fourth_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+                            
+                            {% if errors.fourth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fourth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Member's Phone Number -->
+                        <div>
+                            <label for="fourth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fourth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fourth_member_phone_number" 
+                                type="tel" 
+                                name="fourth_member_phone_number" 
+                                value="{{ request.data.fourth_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fourth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fourth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fifth Member's Name -->
+                        <div>
+                            <label for="fifth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fifth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fifth_member_name" 
+                                type="text" 
+                                name="fifth_member_name" 
+                                value="{{ request.data.fifth_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fifth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fifth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fifth Member's Position -->
+                        <div>
+                            <label for="fifth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fifth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fifth_member_position" 
+                                type="text" 
+                                name="fifth_member_position" 
+                                value="{{ request.data.fifth_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fifth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fifth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fifth Member's Phone Number -->
+                        <div>
+                            <label for="fifth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fifth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fifth_member_phone_number" 
+                                type="tel" 
+                                name="fifth_member_phone_number" 
+                                value="{{ request.data.fifth_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fifth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fifth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sixth Member's Name -->
+                        <div>
+                            <label for="sixth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.sixth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="sixth_member_name" 
+                                type="text" 
+                                name="sixth_member_name" 
+                                value="{{ request.data.sixth_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.sixth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.sixth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sixth Member's Position -->
+                        <div>
+                            <label for="sixth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.sixth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="sixth_member_position" 
+                                type="text" 
+                                name="sixth_member_position" 
+                                value="{{ request.data.sixth_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.sixth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.sixth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Sixth Member's Phone Number -->
+                        <div>
+                            <label for="sixth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.sixth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="sixth_member_phone_number" 
+                                type="tel" 
+                                name="sixth_member_phone_number" 
+                                value="{{ request.data.sixth_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.sixth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.sixth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Seventh Member's Name -->
+                        <div>
+                            <label for="seventh_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.seventh_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="seventh_member_name" 
+                                type="text" 
+                                name="seventh_member_name" 
+                                value="{{ request.data.seventh_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.seventh_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.seventh_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Seventh Member's Position -->
+                        <div>
+                            <label for="seventh_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.seventh_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="seventh_member_position" 
+                                type="text" 
+                                name="seventh_member_position" 
+                                value="{{ request.data.seventh_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.seventh_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.seventh_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Seventh Member's Phone Number -->
+                        <div>
+                            <label for="seventh_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.seventh_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="seventh_member_phone_number" 
+                                type="tel" 
+                                name="seventh_member_phone_number" 
+                                value="{{ request.data.seventh_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.seventh_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.seventh_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Eight Member's Name -->
+                        <div>
+                            <label for="eighth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.eighth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="eighth_member_name" 
+                                type="text" 
+                                name="eighth_member_name" 
+                                value="{{ request.data.eighth_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.eighth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.eighth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Eight Member's Position -->
+                        <div>
+                            <label for="eighth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.eighth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="eighth_member_position" 
+                                type="text" 
+                                name="eighth_member_position" 
+                                value="{{ request.data.eighth_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.eighth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.eighth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Eight Member's Phone Number -->
+                        <div>
+                            <label for="eighth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.eighth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="eighth_member_phone_number" 
+                                type="tel" 
+                                name="eighth_member_phone_number" 
+                                value="{{ request.data.eighth_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.eighth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.eighth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ninth Member's Name -->
+                        <div>
+                            <label for="ninth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.ninth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="ninth_member_name" 
+                                type="text" 
+                                name="ninth_member_name" 
+                                value="{{ request.data.ninth_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.ninth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.ninth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ninth Member's Position -->
+                        <div>
+                            <label for="ninth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.ninth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="ninth_member_position" 
+                                type="text" 
+                                name="ninth_member_position" 
+                                value="{{ request.data.ninth_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.ninth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.ninth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ninth Member's Phone Number -->
+                        <div>
+                            <label for="ninth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.ninth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="ninth_member_phone_number" 
+                                type="tel" 
+                                name="ninth_member_phone_number" 
+                                value="{{ request.data.ninth_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.ninth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.ninth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Tenth Member's Name -->
+                        <div>
+                            <label for="tenth_member_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.tenth_member_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="tenth_member_name" 
+                                type="text" 
+                                name="tenth_member_name" 
+                                value="{{ request.data.tenth_member_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.tenth_member_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.tenth_member_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Tenth Member's Position -->
+                        <div>
+                            <label for="tenth_member_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.tenth_member_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="tenth_member_position" 
+                                type="text" 
+                                name="tenth_member_position" 
+                                value="{{ request.data.tenth_member_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.tenth_member_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.tenth_member_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Tenth Member's Phone Number -->
+                        <div>
+                            <label for="tenth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.tenth_member_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="tenth_member_phone_number" 
+                                type="tel" 
+                                name="tenth_member_phone_number" 
+                                value="{{ request.data.tenth_member_phone_number }}"
+                                pattern="[0-9]{4} [0-9]{3} [0-9]{4}" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.tenth_member_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.tenth_member_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRUSTEES -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        8. Four (4) Trustees
+                    </h2>
+
+                    <!-- Four(4) Trustees -->
+                    <div class="break-all grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- First Trustee's Name -->
+                        <div>
+                            <label for="first_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="first_trustee_name" 
+                                type="text" 
+                                name="first_trustee_name" 
+                                value="{{ request.data.first_trustee_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.first_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Trustee's Position -->
+                        <div>
+                            <label for="first_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="first_trustee_name" 
+                                type="text" 
+                                name="first_trustee_position" 
+                                value="{{ request.data.first_trustee_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.first_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Trustee's Phone Number -->
+                        <div>
+                            <label for="first_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="first_trustee_phone_number" 
+                                type="text" 
+                                name="first_trustee_phone_number" 
+                                value="{{ request.data.first_trustee_phone_number }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.first_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.first_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Trustee's Name -->
+                        <div>
+                            <label for="second_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="second_trustee_name" 
+                                type="text" 
+                                name="second_trustee_name" 
+                                value="{{ request.data.second_trustee_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.second_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Trustee's Position -->
+                        <div>
+                            <label for="second_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="second_trustee_position" 
+                                type="text" 
+                                name="second_trustee_position" 
+                                value="{{ request.data.second_trustee_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.second_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Second Trustee's Phone Number -->
+                        <div>
+                            <label for="second_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="second_trustee_phone_number" 
+                                type="text" 
+                                name="second_trustee_phone_number" 
+                                value="{{ request.data.second_trustee_phone_number }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.second_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.second_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Trustee's Name -->
+                        <div>
+                            <label for="third_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="third_trustee_name" 
+                                type="text" 
+                                name="third_trustee_name" 
+                                value="{{ request.data.third_trustee_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.third_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.third_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Trustee's Position -->
+                        <div>
+                            <label for="third_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="third_trustee_position" 
+                                type="text" 
+                                name="third_trustee_position" 
+                                value="{{ request.data.third_trustee_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.third_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.third_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Third Trustee's Phone Number -->
+                        <div>
+                            <label for="third_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.third_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="third_trustee_phone_number" 
+                                type="text" 
+                                name="third_trustee_phone_number" 
+                                value="{{ request.data.third_trustee_phone_number }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.third_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.third_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Trustee's Name -->
+                        <div>
+                            <label for="fourth_trustee_name" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fourth_trustee_name.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fourth_trustee_name" 
+                                type="text" 
+                                name="fourth_trustee_name" 
+                                value="{{ request.data.fourth_trustee_name }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fourth_trustee_name %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fourth_trustee_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Trustee's Position -->
+                        <div>
+                            <label for="fourth_trustee_position" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fourth_trustee_position.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fourth_trustee_position" 
+                                type="text" 
+                                name="fourth_trustee_position" 
+                                value="{{ request.data.fourth_trustee_position }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fourth_trustee_position %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fourth_trustee_position }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fourth Trustee's Phone Number -->
+                        <div>
+                            <label for="fourth_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.fourth_trustee_phone_number.label }}
+                                <span class="ml-1 text-1xl font-medium text-red-600">
+                                    <em>*</em>
+                                </span>
+                            </label>
+                            <input 
+                                id="fourth_trustee_phone_number" 
+                                type="text" 
+                                name="fourth_trustee_phone_number" 
+                                value="{{ request.data.fourth_trustee_phone_number }}"
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500 focus:z-10">
+
+                            {% if errors.fourth_trustee_phone_number %}
+                                <span class="text-red-600 font-medium">
+                                    {{ errors.fourth_trustee_phone_number }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BYE-LAWS? -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        9. Does the Society have Bye-Laws?
+                    </h2>
+
+                    <!-- Fields -->
+                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">
+                        {% for choice in tag.have_bye_laws.choices %}                            
+                            <div class="flex inline-flex">
+                                <span class="w-6 h-6"
+                                    {% if choice == 'Yes' %} 
+                                        id="id_openbyelaw"
+                                        {% else %}
+                                            id="id_closebyelaw"
+                                    {% endif %}>
+
+                                    <input type="radio" id="have_bye_laws" style="cursor:pointer" name="have_bye_laws"
+                                        value="{{ choice }}"
+                                        {% if request.data.have_bye_laws == choice %}
+                                            checked
+                                            {% elif choice == "No" %}
+                                                checked
+                                        {% endif %}>     
+                                </span>
+                                <label for="have_bye_laws" class="block mb-2 text-lg font-bold text-gray-500">
+                                    {{ choice }}
+                                </label>
+                            </div>
+                        {% endfor %}                        
+                        
+                        <p class="text-sm text-gray-500">
+                            Please select one of these options <em class="ml-1 text-1xl font-medium text-red-600">*</em>
+                        </p>
+                        {% if errors.have_bye_laws %}
+                            <span class="text-red-600 font-medium">
+                                {{ errors.have_bye_laws }}
+                            </span>
+                        {% endif %}
+                    </fieldset>
+                </div>
+
+                <!-- ATTACH A COPY OF YOUR BYE-LAWS -->
+                <div id="attach_bye_laws" class="hidden">
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        9a. Attach a copy of your Bye-Laws
+                    </h2>
+
+
+                    <!-- Attach a copy of your Bye-Laws -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- Attach a copy of your Bye-Laws -->
+                        <div>
+                            <label for="attach_bye_laws" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.attach_bye_laws.label }}
+                            </label>
+
+                            <input 
+                                id="attach_bye_laws" 
+                                type="file" 
+                                name="attach_bye_laws" 
+                                value="{{ request.files.attach_bye_laws }}"
+                                style="cursor:pointer" 
+                                class="text-md md:text-md font-medium block rounded-sm w-full p-2 border border-2 
+                                        border-gray-300 placeholder-gray-500 text-gray-600 focus:outline-none 
+                                        focus:ring-indigo-500 focus:border-indigo-500">  
+                            
+                            <p class="mt-1 text-sm text-gray-500">
+                                PDF, DOC (MS WORD), TXT, PNG OR JPG formats only
+                            </p>
+                        </div>
+
+                        {% if errors.attach_bye_laws %}
+                            <span class="text-red-600 font-medium">
+                                {{ errors.attach_bye_laws }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <div class="flex items-center mx-auto w-full md:w-[500px] space-x-4 justify-center mt-14">
+                <!-- Submit -->
+                <button type="submit" 
+                        class="group relative w-full flex items-center mx-auto justify-center mt-6 mb-4 py-3 px-4 border border-transparent 
+                                text-md font-medium rounded-sm text-white bg-green-700 hover:bg-green-600 focus:outline-none 
+                                focus:ring-4 focus:ring-offset-2 focus:ring-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                            fill="currentColor" class="-ml-1 mr-2 h-5 w-5 text-white">
+                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                        </svg>
+                                    
+                    Submit
+                </button>
+
+                <!-- Clear form -->
+                <button type="reset" 
+                        class="group relative w-full flex items-center mx-auto justify-center mt-6 mb-4 py-3 px-4 border border-red-700 
+                                text-md font-medium rounded-sm text-white bg-red-700 hover:bg-red-600 focus:outline-none 
+                                focus:ring-4 focus:ring-offset-2 focus:ring-red-500 hover:border-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                            fill="currentColor" class="-ml-1 mr-2 h-5 w-5 text-white">
+                            <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
+                        </svg>                                      
+                    Reset
+                </button>
+            </div>
+        </form>
+        <!-- End - Form -->
+
+        <!-- JavaScript to open ATTACH SHARE CAPITAL field -->
+        <script src="{% static 'js/attach_share_capital.js' %}"></script>
+
+        <!-- JavaScript to open ATTACH A COPY OF BYE-LAWS field -->
+        <script src="{% static 'js/attach_bye_laws.js' %}"></script>
+    </div>
+    <!-- End - Outer Container -->
+
+    <!-- JavaScript to check if cookies are enabled -->
+    {% comment %} <script src="{% static 'js/checkcookies.js' %}"></script> {% endcomment %}
+
+{% endblock %}

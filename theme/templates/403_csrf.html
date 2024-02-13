@@ -1,0 +1,41 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load active_link_tags %}
+
+{% block title %}
+  <title>CSRF Failure</title>
+{% endblock %}
+
+<!-- Navbar logo -->
+{% block logo %}
+	<a href="https://mbtc.edostate.gov.ng" class="flex items-center">
+		<img src="{% static 'img/mbtc-logo-gray-800.svg' %}" class="md:h-14 h-14" alt="MBTC-logo">
+	</a>	
+{% endblock %}
+
+{% block content %}
+  
+  <!-- Body Container -->
+  <div class="mx-auto m-32 py-10 max-w-full md:max-w-4xl bg-white shadow-md rounded-sm px-8 md:px-12">
+
+    <!-- Body -->
+    <div>
+
+      <!-- Registration of Cooperatives -->
+      <div class="text-center">
+        <h2 class="text-xl md:text-2xl font-extrabold text-green-800">Cookies Disabled</h2>
+        <h2 class="text-[20px] md:text-xl font-bold text-green-700">
+            <p class="mt-4">
+              Your browser has cookies disabled. Please enable it and try to 
+              <a class="underline underline-offset-4" href="{% url 'login' %}">Log In</a> again. Thank you
+            </p>
+        </h2>
+      </div>
+
+    </div>
+    <!-- End - Form -->
+
+  </div>
+  <!-- End - Body Container -->
+{% endblock %}

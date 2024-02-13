@@ -1,0 +1,120 @@
+
+.text-replace {
+    overflow: hidden;
+    color: transparent;
+    text-indent: 100%;
+    white-space: nowrap
+}
+
+
+:root {
+    --cd-color-1: hsl(53, 29%, 95%);
+    --cd-color-1-h: 53;
+    --cd-color-1-s: 29%;
+    --cd-color-1-l: 95%;
+    --cd-color-2: hsl(330, 13%, 42%);
+    --cd-color-2-h: 330;
+    --cd-color-2-s: 13%;
+    --cd-color-2-l: 42%;
+    --cd-color-3: hsl(5, 76%, 62%);
+    --cd-color-3-h: 5;
+    --cd-color-3-s: 76%;
+    --cd-color-3-l: 62%;
+    --cd-back-to-top-size: 50px;
+    --cd-back-to-top-margin: 20px;
+    --font-primary: 'Bitter', sans-serif;
+    --font-secondary: 'Open Sans', sans-serif
+}
+
+@supports (--css: variables) {
+    @media (min-width: 64rem) {
+        :root {
+            --cd-back-to-top-size: 60px;
+            --cd-back-to-top-right-margin: 30px
+        }
+    }
+}
+
+.cd-top {
+    position: fixed;
+    bottom: 60px;
+    /* bottom: var(--cd-back-to-top-margin); */
+    right: 20px;
+    right: var(--cd-back-to-top-margin);
+    display: inline-block;
+    height: 40px;
+    height: var(--cd-back-to-top-size);
+    width: 40px;
+    width: var(--cd-back-to-top-size);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    background: url(../img/cd-top-arrow.svg) no-repeat center 50%;
+    background-color: #e86154cc;
+    background-color: hsla(var(--cd-color-3-h), var(--cd-color-3-s), var(--cd-color-3-l), 0.8)
+}
+
+.js .cd-top {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s, visibility .3s, background-color .3s
+}
+
+.js .cd-top--is-visible {
+    visibility: visible;
+    opacity: 1
+}
+
+.js .cd-top--fade-out {
+    opacity: .5
+}
+
+.js .cd-top:hover {
+    background-color: hsl(5, 76%, 62%);
+    background-color: var(--cd-color-3);
+    opacity: 1
+}
+
+body {
+    background-color: hsl(330, 13%, 42%);
+    background-color: var(--cd-color-2);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.cd-main-header {
+    height: 180px;
+    background-color: hsl(330, 13%, 31.92%);
+    background-color: hsl(var(--cd-color-2-h), var(--cd-color-2-s), calc(var(--cd-color-2-l)*0.76));
+    color: hsl(53, 29%, 95%);
+    color: var(--cd-color-1);
+    font-family: 'Open Sans', sans-serif;
+    font-family: var(--font-secondary)
+}
+
+.cd-main-header h1 {
+    font-weight: bold;
+    color: inherit;
+    text-transform: uppercase
+}
+
+.cd-main-header p {
+    color: hsl(330, 13%, 52.08%);
+    color: hsl(var(--cd-color-2-h), var(--cd-color-2-s), calc(var(--cd-color-2-l)*1.24))
+}
+
+.cd-main-header a {
+    color: hsl(53, 29%, 95%);
+    color: var(--cd-color-1);
+    font-family: 'Bitter', sans-serif;
+    font-family: var(--font-primary)
+}
+
+@media (min-width: 64rem) {
+    .cd-main-header {
+        height: 280px
+    }
+}
+
+.cd-main-content p {
+    color: hsl(53, 29%, 95%);
+    color: var(--cd-color-1)
+}

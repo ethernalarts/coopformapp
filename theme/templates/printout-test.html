@@ -1,0 +1,764 @@
+{% load tailwind_tags %}
+{% load django_htmx %}
+{% load static %}
+{% load widget_tweaks %}
+
+<!doctype html>
+
+<html dir="ltr" lang="en"> 
+    <title>{{ form.society_name|title }} Profile Printout</title>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% comment %} {% tailwind_css %} {% endcomment %}
+
+        <link rel="stylesheet" href="{% static 'css/dist/printout.css' %}">
+    </head>
+
+    <!-- Body Container -->
+    <body style="padding: 0.5rem; max-width: 80rem; 
+                font-family: Lato, Tahoma, Arial, Roboto, 
+                sans-serif; background-color: #6B7280;
+                margin-left: auto; margin-right: auto">
+        
+        <!-- Top Image Header Container -->
+        <div style="display: flex; padding-left: 1rem;
+                    padding-right: 1rem; padding-top: 1.5rem;
+                    padding-bottom: 1.5rem; align-items: center; 
+                    background-color: #ffffff">
+
+            <!-- Logo Container -->
+            <div style="margin-left: auto; margin-right: auto; 
+                        padding: 1rem; width: 800px">
+
+                <!-- Top Logo -->
+                <img 
+                    src="{% static 'img/coopform-logo-1.svg' %}" 
+                    style="width: 100%; height: 100%" 
+                    alt="MBTC_EDSG_logo">
+            </div>
+        </div>
+    
+        <!-- Bounded Form Fields -->
+        <div style="padding: 2rem; margin-top: 0.5rem; border-radius: 0.125rem; 
+                    background-color: #ffffff; margin-left: auto; margin-right: auto;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)">
+
+            <!-- Department of Cooperatives -->
+            <div>
+                <h2 style="padding-top: 0.75rem; padding-bottom: 0.75rem; padding-left: 1rem; padding-right: 1rem; 
+                           font-size: 1.5rem; line-height: 2rem; font-weight: 700; text-align: center; 
+                           color: #ffffff; background-color: #047857; width: 450px; margin-left: auto;
+                           margin-right: auto">
+                    DEPARTMENT OF COOPERATIVES
+                </h2>
+            </div>
+
+            <!-- Registration of Cooperatives -->
+            <div style="margin-top: 3.5rem; text-align: center">
+                <h2 style="font-size: 1.5rem; line-height: 2rem; 
+                            font-weight: 800; color: #047857">
+                    <u>{{ form.society_name|upper }} COOPERATIVE SOCIETY</u>
+                </h2>
+            </div>
+
+            <!-- Society's logo -->
+            <div style="margin-top: 3rem; width: 100%; height: 100%">
+                {% if form.society_logo %}
+                    <img style="border-radius: 9999px; width: 8rem; height: 8rem; 
+                                text-align: center; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                                margin-left: auto; margin-right: auto; display: block"
+                        src="{{ form.society_logo.url }}" 
+                        alt="{{ form.society_name }} image">  
+                    {% else %}
+                        <img 
+                        style="border-radius: 9999px; width: 8rem; height: 8rem; 
+                               text-align: center; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                               margin-left: auto; margin-right: auto; display: block" 
+                            src="{% static 'img/default.png' %}" 
+                            alt="{{ form.society_name }} image">  
+                {% endif %}
+            </div>
+
+            <!-- Form Sections and Fields -->
+            <div style="margin-top: 3.5rem">
+
+                <!-- SOCIETY DETAILS -->
+                <div>
+
+                    <!-- HEADER - SOCIETY DETAILS -->
+                    <h2 style="padding: 0.5rem; padding-left: 1rem; padding-right: 1rem; 
+                                margin-top: 3.5rem; font-weight: 700; color: #ffffff; 
+                                background-color: #047857; color: 18px;">
+                        1.  Cooperative Society's Details
+                    </h2>
+
+                    <!-- Cooperative Society Details -->
+                    <div style="display: grid; padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 1rem; 
+                                padding-bottom: 2rem; margin-top: 0.25rem; grid-template-columns: auto auto auto; 
+                                gap: 2rem; border-style: solid; border-width: 1px; 
+                                border-color: #D1D5DB; word-break: break-all; background-color: #F9FAFB; 
+                                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)">
+
+                        <!-- Society Name -->
+                        <div>
+                            <label for="society_name" 
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 700; 
+                                           color: #6B7280; font-size: 1rem; line-height: 1.5rem">
+                                {{ tag.society_name.label }}
+                            </label>
+                            <span style="font-size: 1rem; line-height: 1.5rem; display: block; width: 100%; padding: 0.5rem; 
+                                        border-radius: 0.125rem; border-style: solid; border-width: 2px; border-color: #D1D5DB; 
+                                        font-weight: normal; color: #4B5563; background-color: #ffffff">
+                                {{ form.society_name }}
+                            </span>
+                        </div>
+
+                        <!-- Society Category -->
+                        <div>
+                            <label for="society_name" 
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 700; 
+                                           color: #6B7280; font-size: 1rem; line-height: 1.5rem">
+                                {{ tag.society_category.label }}
+                            </label>
+                            <span style="font-size: 1rem; line-height: 1.5rem; display: block; width: 100%; padding: 0.5rem; 
+                                        border-radius: 0.125rem; border-style: solid; border-width: 2px; border-color: #D1D5DB; 
+                                        font-weight: normal; color: #4B5563; background-color: #ffffff"
+                            >
+                                {{ form.society_category }}
+                            </span>
+                        </div>
+
+                        <!-- SOCIETY HOUSE NUMBER -->
+                        <div>
+                            <label for="society_name" 
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 700; 
+                                           color: #6B7280; font-size: 1rem; line-height: 1.5rem">
+                                {{ tag.society_house_number.label }}
+                            </label>
+                            <span style="font-size: 1rem; line-height: 1.5rem; display: block; width: 100%; padding: 0.5rem; 
+                                        border-radius: 0.125rem; border-style: solid; border-width: 2px; border-color: #D1D5DB; 
+                                        font-weight: normal; color: #4B5563; background-color: #ffffff">
+                                {{ form.society_house_number }}
+                            </span>
+                        </div>
+
+                        <!-- SOCIETY STREET -->
+                        <div>                            
+                            <label for="society_name" 
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 700; 
+                                           color: #6B7280; font-size: 1rem; line-height: 1.5rem">
+                                {{ tag.society_street.label }}
+                            </label>
+                            <span style="font-size: 1rem; line-height: 1.5rem; display: block; width: 100%; padding: 0.5rem; 
+                                        border-radius: 0.125rem; border-style: solid; border-width: 2px; border-color: #D1D5DB; 
+                                        font-weight: normal; color: #4B5563; background-color: #ffffff">
+                                {{ form.society_street }}
+                            </span>
+                        </div>
+
+                        <!-- SOCIETY VILLAGE/CITY -->
+                        <div>                          
+                            <label for="society_name" 
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 700; 
+                                           color: #6B7280; font-size: 1rem; line-height: 1.5rem">
+                                {{ tag.society_village_city.label }}
+                            </label>
+                            <span style="font-size: 1rem; line-height: 1.5rem; display: block; width: 100%; padding: 0.5rem; 
+                                        border-radius: 0.125rem; border-style: solid; border-width: 2px; border-color: #D1D5DB; 
+                                        font-weight: normal; color: #4B5563; background-color: #ffffff">
+                                {{ form.society_village_city }}
+                            </span>
+                        </div>
+
+                        <!-- SOCIETY LGA OF ACTIVITIES -->
+                        <div>                          
+                            <label for="society_name" 
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 700; 
+                                           color: #6B7280; font-size: 1rem; line-height: 1.5rem">
+                                {{ tag.society_lga_of_activities.label }}
+                            </label>
+                            <span style="font-size: 1rem; line-height: 1.5rem; display: block; width: 100%; padding: 0.5rem; 
+                                        border-radius: 0.125rem; border-style: solid; border-width: 2px; border-color: #D1D5DB; 
+                                        font-weight: normal; color: #4B5563; background-color: #ffffff">
+                                {{ form.society_lga_of_activities }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTACT PERSONS -->
+                <div>
+
+                    <!-- HEADER - CONTACT PERSONS -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        2.  Contact Persons
+                    </h2>
+
+                    <!-- Contact Persons -->
+                    <div class="break-all grid gap-6 mt-1 grid-cols-2 px-6 pt-4 pb-8 bg-gray-50 border border-1 border-gray-300 shadow-md">                            
+
+                        <!-- First Contact Name -->
+                        <div>
+                            <label for="first_contact_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_contact_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_contact_name }}</span>
+                        </div>
+                        
+                        <!-- First Contact Phone Number -->
+                        <div>
+                            <label for="first_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_contact_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_contact_phone_number }}</span>
+                        </div>
+
+                        <!-- First Contact Email -->
+                        <div>
+                            <label for="first_contact_email" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_contact_email.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_contact_email }}</span>
+                        </div>
+
+                        <!-- Second Contact Name -->
+                        <div>
+                            <label for="second_contact_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_contact_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_contact_name }}</span>
+                        </div>
+                        
+                        <!-- Second Contact Phone Number -->
+                        <div>
+                            <label for="second_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_contact_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_contact_phone_number }}</span>  
+                        </div>
+
+                        <!-- Second Contact Email -->
+                        <div>
+                            <label for="second_contact_email" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_contact_email.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_contact_email }}</span>
+                        </div>
+
+                        <!-- Third Contact Name -->
+                        <div>
+                            <label for="third_contact_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_contact_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_contact_name }}</span>
+                        </div>
+                        
+                        <!-- Third Contact Phone Number -->
+                        <div>
+                            <label for="third_contact_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_contact_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_contact_phone_number }}</span>
+                        </div>
+
+                        <!-- Third Contact Email -->
+                        <div>
+                            <label for="third_contact_email" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_contact_email.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_contact_email }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PURPOSE OF REGISTRATION -->
+                <div>
+
+                    <!-- HEADER - PURPOSE OF REGISTRATION -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        3.  Purpose of Registration
+                    </h2>
+
+                    <!-- Purpose of Registration -->
+                    <div class="break-normal grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-gray-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- First Purpose -->
+                        <div>
+                            <label for="first_purpose" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_purpose.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_purpose }}</span>
+                        </div>
+
+                        <!-- Second Purpose -->
+                        <div>
+                            <label for="second_purpose" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_purpose.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_purpose }}</span>
+                        </div>
+
+                        <!-- Third Purpose -->
+                        <div>
+                            <label for="third_purpose" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_purpose.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_purpose }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NATURE OF REGISTRATION SOUGHT -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        4. Nature of Registration Sought
+                    </h2>
+
+                    <!-- Fields -->
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-gray-50 border border-1 border-gray-300 shadow-md">
+                        
+                        <!-- Nature of Registration -->
+                        <div>
+                            <span class="text-md font-medium block w-full p-2 text-gray-600">{{ form.nature_registration }}</span>                            
+                        </div>                               
+                    </div>
+                </div>
+                
+                {% if form.nature_registration == 'Limited Liability' %}
+                    <!-- ATTACH EVIDENCE OF SHARE CAPITAL/CONTRIBUTION BY EACH MEMBER -->
+                    <div>
+
+                        <!-- HEADER - ATTACH SHARE CAPITAL -->
+                        <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                            4a. Attach evidence of share capital/contribution by each member
+                        </h2>
+
+                        <!-- Attach Share Capital -->
+                        <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 
+                                    flex flex-wrap focus:z-20 border border-1 border-gray-300 shadow-md">
+                            
+                            <!-- Attach Share Capital -->
+                            <div>
+                                {% if sharefiles %}
+                                    <label for="attach_share_capital" class="block mb-2 text-md font-bold text-gray-500">
+                                        Files attached
+                                    </label>
+                                    <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">                                                
+                                        <ol class="break-all list-inside list-decimal">
+                                            {% for doc in sharefiles %}
+                                                <li class="p-2 cursor-pointer text-blue-600 hover:text-blue-700 font-bold text-md w-full">
+                                                    <a target='blank' href="{{ doc.attach_share_capital.url }}" 
+                                                        class="underline underline-offset-2">
+                                                        {{ doc.attach_share_capital_filename }}
+                                                    </a>
+                                                </li>   
+                                            {% endfor %}
+                                        </ol>
+                                    </span>
+                                    {% else %}
+                                        <label for="attach_share_capital" class="block mb-2 text-md font-bold text-gray-500">
+                                            {{ tag.attach_share_capital }}
+                                        </label>
+                                        <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                            No files attached
+                                        </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>                    
+                {% endif %}
+
+                <!-- DATES OF MEETINGS FOR SOCIETY FORMATION (ATTACH MINUTES OF TWO MEETINGS) -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-10 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        5.  Dates of Meeting for Society Formation (Attach minutes of two meetings)
+                    </h2>
+
+                    <!-- Attach minutes -->
+                    <div class="break-all grid gap-6 mt-1 mx-auto grid-cols-2 px-6 pt-4 pb-8 bg-gray-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- Date of first meeting -->
+                        <div>
+                            <label for="first_origin_meeting_date" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.first_origin_meeting_date.label }}
+                            </label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                {{ form.first_origin_meeting_date }}
+                            </span>
+                        </div>
+
+                        <!-- Date of second meeting -->
+                        <div>
+                            <label for="second_origin_meeting_date" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.second_origin_meeting_date.label }}
+                            </label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                {{ form.second_origin_meeting_date }}
+                            </span>                                
+                        </div>
+
+                        <!-- Attach first minute -->
+                        <div>
+                            <label for="attach_first_minute" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.attach_first_minute.label }}
+                            </label>
+                            {% if form.attach_first_minute %}
+                                <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">                                        
+                                    <a target='blank' href="{{ form.attach_first_minute.url }}" 
+                                        class="mt-8 underline underline-offset-2 text-blue-600 hover:text-blue-700 font-bold text-md">
+                                        {{ form.attach_first_minute_filename }}
+                                    </a>
+                                </span>
+                                {% else %} 
+                                    <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                        No file attached
+                                    </span>
+                            {% endif %}                              
+                        </div>
+
+                        <!-- Attach second minute -->
+                        <div>                                
+                            <label for="attach_first_minute" class="block mb-2 text-md font-bold text-gray-500">
+                                {{ tag.attach_second_minute.label }}
+                            </label>
+                            {% if form.attach_second_minute %}
+                                <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                    <a target='blank' href="{{ form.attach_second_minute.url }}" 
+                                        class="list-disc underline underline-offset-2 text-blue-600 hover:text-blue-700 font-bold text-md">
+                                        {{ form.attach_second_minute_filename }}
+                                    </a>
+                                </span>
+                                {% else %}
+                                    <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                        No file attached
+                                    </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10 MEMBERS IN THE SOCIETY -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        6. Ten (10) Members in the Society
+                    </h2>
+
+                    <!-- 10 Members -->
+                    <div class="break-all grid gap-6 mt-1 grid-cols-2 px-6 pt-4 pb-8 bg-gray-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- President's Name -->
+                        <div>
+                            <label for="president_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.president_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.president_name }}</span>
+                        </div>
+
+                        <!-- President Position -->
+                        <div>
+                            <span class="block mb-2 text-md font-bold text-gray-500">Position</span>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">President</span>
+                        </div>
+
+                        <!-- President's Phone Number -->
+                        <div>
+                            <label for="president_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.president_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.president_phone_number }}</span>
+                        </div>
+
+                        <!-- Secretary's Name -->
+                        <div>
+                            <label for="secretary_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.secretary_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.secretary_name }}</span>
+                        </div>
+
+                        <!-- Secretary's Position -->
+                        <div>
+                            <span class="block mb-2 text-md font-bold text-gray-500">Position</span>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">Secretary</span>
+                        </div>
+
+                        <!-- Secretary's Phone Number -->
+                        <div>
+                            <label for="secretary_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.secretary_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.secretary_phone_number }}</span>
+                        </div>
+
+                        <!-- Treasurer's Name -->
+                        <div>
+                            <label for="treasurer_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.treasurer_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.treasurer_name }}</span>
+                        </div>
+
+                        <!-- Treasurer Position -->
+                        <div>
+                            <span class="block mb-2 text-md font-bold text-gray-500">Position</span>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">Treasurer</span>
+                        </div>
+
+                        <!-- Treasurer's Phone Number -->
+                        <div>
+                            <label for="treasurer_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.treasurer_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.treasurer_phone_number }}</span>
+                        </div>
+
+                        <!-- Fourth Member's Name -->
+                        <div>
+                            <label for="fourth_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fourth_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fourth_member_name }}</span>                                  
+                        </div>
+
+                        <!-- Fourth Member's Position -->
+                        <div>
+                            <label for="fourth_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fourth_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fourth_member_position }}</span>                                                                                
+                        </div>
+
+                        <!-- Fourth Member's Phone Number -->
+                        <div>
+                            <label for="fourth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fourth_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fourth_member_phone_number }}</span>                                  
+                        </div>
+
+                        <!-- Fifth Member's Name -->
+                        <div>
+                            <label for="fifth_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fifth_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fifth_member_name }}</span>                                  
+                        </div>
+
+                        <!-- Fifth Member's Position -->
+                        <div>
+                            <label for="fifth_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fifth_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fifth_member_position }}</span>                                                                                
+                        </div>
+
+                        <!-- Fifth Member's Phone Number -->
+                        <div>
+                            <label for="fifth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fifth_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fifth_member_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Sixth Member's Name -->
+                        <div>
+                            <label for="sixth_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.sixth_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.sixth_member_name }}</span>                                
+                        </div>
+
+                        <!-- Sixth Member's Position -->
+                        <div>
+                            <label for="sixth_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.sixth_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.sixth_member_position }}</span>                                
+                        </div>
+
+                        <!-- Sixth Member's Phone Number -->
+                        <div>
+                            <label for="sixth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.sixth_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.sixth_member_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Seventh Member's Name -->
+                        <div>
+                            <label for="seventh_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.seventh_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.seventh_member_name }}</span>                                
+                        </div>
+
+                        <!-- Seventh Member's Position -->
+                        <div>
+                            <label for="seventh_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.seventh_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.seventh_member_position }}</span>                                
+                        </div>
+
+                        <!-- Seventh Member's Phone Number -->
+                        <div>
+                            <label for="seventh_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.seventh_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.seventh_member_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Eight Member's Name -->
+                        <div>
+                            <label for="eighth_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.eighth_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.eighth_member_name }}</span>                                
+                        </div>
+
+                        <!-- Eight Member's Position -->
+                        <div>
+                            <label for="eighth_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.eighth_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.eighth_member_position }}</span>                                
+                        </div>
+
+                        <!-- Eight Member's Phone Number -->
+                        <div>
+                            <label for="eighth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.eighth_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.eighth_member_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Ninth Member's Name -->
+                        <div>
+                            <label for="ninth_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.ninth_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.ninth_member_name }}</span>                                
+                        </div>
+
+                        <!-- Ninth Member's Position -->
+                        <div>
+                            <label for="ninth_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.ninth_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.ninth_member_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Ninth Member's Phone Number -->
+                        <div>
+                            <label for="ninth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.ninth_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.ninth_member_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Tenth Member's Name -->
+                        <div>
+                            <label for="tenth_member_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.tenth_member_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.tenth_member_name }}</span>                                
+                        </div>
+
+                        <!-- Tenth Member's Position -->
+                        <div>
+                            <label for="tenth_member_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.tenth_member_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.tenth_member_position }}</span>                                
+                        </div>
+
+                        <!-- Tenth Member's Phone Number -->
+                        <div>
+                            <label for="tenth_member_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.tenth_member_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.tenth_member_phone_number }}</span>                                
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRUSTEES -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        7. Four (4) Trustees
+                    </h2>
+
+                    <!-- 10 Members -->
+                    <div class="break-all grid gap-6 mt-1 grid-cols-2 px-6 pt-4 pb-8 bg-gray-50 border border-1 border-gray-300 shadow-md">
+
+                        <!-- First Trustee's Name -->
+                        <div>
+                            <label for="first_trustee_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_trustee_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_trustee_name }}</span>
+                        </div>
+
+                        <!-- First Trustee's Position -->
+                        <div>
+                            <label for="first_trustee_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_trustee_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_trustee_position }}</span>                                
+                        </div>
+
+                        <!-- First Trustee's Phone Number -->
+                        <div>
+                            <label for="first_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.first_trustee_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.first_trustee_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Second Trustee's Name -->
+                        <div>
+                            <label for="second_trustee_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_trustee_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_trustee_name }}</span>
+                        </div>
+
+                        <!-- Second Trustee's Position -->
+                        <div>
+                            <label for="second_trustee_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_trustee_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_trustee_position }}</span>                                
+                        </div>
+
+                        <!-- Second Trustee's Phone Number -->
+                        <div>
+                            <label for="second_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.second_trustee_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.second_trustee_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Third Trustee's Name -->
+                        <div>
+                            <label for="third_trustee_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_trustee_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_trustee_name }}</span>
+                        </div>
+
+                        <!-- Third Trustee's Position -->
+                        <div>
+                            <label for="third_trustee_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_trustee_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_trustee_position }}</span>                                
+                        </div>
+
+                        <!-- Third Trustee's Phone Number -->
+                        <div>
+                            <label for="third_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.third_trustee_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.third_trustee_phone_number }}</span>                                
+                        </div>
+
+                        <!-- Fourth Trustee's Name -->
+                        <div>
+                            <label for="fourth_trustee_name" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fourth_trustee_name.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fourth_trustee_name }}</span>
+                        </div>
+
+                        <!-- Fourth Trustee's Position -->
+                        <div>
+                            <label for="fourth_trustee_position" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fourth_trustee_position.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fourth_trustee_position }}</span>                                
+                        </div>
+
+                        <!-- Fourth Trustee's Phone Number -->
+                        <div>
+                            <label for="fourth_trustee_phone_number" class="block mb-2 text-md font-bold text-gray-500">{{ tag.fourth_trustee_phone_number.label }}</label>
+                            <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">{{ form.fourth_trustee_phone_number }}</span>                                
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HAVE BYE-LAWS? -->
+                <div>
+
+                    <!-- HEADER -->
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                        8. Does the Society have Bye-Laws?
+                    </h2>
+
+                    <!-- Fields -->
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">
+                        <span class="text-md font-medium block w-full p-2 text-gray-600">{{ form.have_bye_laws }}</span>
+                    </div>
+                </div>
+
+                {% if form.have_bye_laws == 'Yes' %}                    
+                    <!-- ATTACH A COPY OF BYE-LAWS -->
+                    <div>
+
+                        <!-- HEADER -->
+                        <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
+                            8a. Attach a copy of your Bye-Laws
+                        </h2>
+
+                        <!-- Attach a copy of Bye-Laws -->
+                        <div class="break-all grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-gray-50 border border-1 border-gray-300 shadow-md">
+
+                            <!-- Attach a copy of Bye-Laws -->
+                            <div>
+                                {% if form.attach_bye_laws %}
+                                    <label for="attach_bye_laws" class="block mb-2 text-md font-bold text-gray-500">
+                                        A file was attached
+                                    </label>
+                                    <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                        <a target='blank' href="{{ form.attach_bye_laws.url }}" 
+                                            class="underline underline-offset-2 text-blue-600 hover:text-blue-700 font-bold text-md">
+                                            {{ form.attach_bye_laws_filename }}
+                                        </a>
+                                    </span>
+                                    {% else %}
+                                        <label for="attach_bye_laws" class="block mb-2 text-md font-bold text-gray-500">
+                                            {{ tag.attach_bye_laws.label }}
+                                        </label>
+                                        <span class="text-md font-medium block w-full p-2 rounded-sm border border-2 border-gray-300 bg-white text-gray-600">
+                                            No file attached
+                                        </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>                    
+                {% endif %}
+
+                <p class="mx-auto text-center mt-10 mb-2 text-md font-bold text-green-600">
+                    Registered: {{ form.created }}<br>
+                    Last Edited: {{ form.updated }}
+                </p>
+            </div>
+        </div>
+        <!-- End - Form -->   
+
+    </body>
+    <!-- End - Body Container -->
+
+</html>

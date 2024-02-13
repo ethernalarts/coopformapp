@@ -1,0 +1,107 @@
+
+<div 
+    id="search-modal" 
+    tabindex="-1"
+    class="fixed hidden overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0
+            z-50 p-4 backdrop-opacity-40 backdrop-invert md:inset-0 h-[calc(100%-0rem)] max-h-full">
+        
+            <!-- X button -->
+            <button 
+                id="closesearch-x" 
+                type="button" 
+                data-modal-toggle="popup-modal"
+                class="closemodal absolute top-4 right-3.5 text-white bg-gray-600 hover:bg-gray-800 
+                        rounded-sm text-sm p-1.5 ml-auto inline-flex items-center">
+                <svg 
+                    class="w-10 h-10" 
+                    fill="currentColor" 
+                    viewBox="0 0 20 20" 
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path 
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+            </button>
+        
+            <!-- Outer Modal Container -->
+            <div class="relative w-full max-w-full max-h-full mx-auto">
+        
+                <!-- Remove and Cancel buttons -->
+                <div class="flex inline-block align-middle items-center space-x-3 justify-center mt-48">
+                    
+                    <!-- Search bar container -->
+                    <div class="max-w-3xl w-full">
+                
+                        <!-- Search form -->
+                        <form 
+                            action="{% url 'api-searchresult' %}" 
+                            class="flex items-center" 
+                            method="GET">
+        
+                            <!-- Input -->
+                            <div class="relative w-full">
+                                <input 
+                                    type="search" 
+                                    name="q" 
+                                    class="bg-white block font-medium border border-4 border-white text-white text-xl rounded-none 
+                                            focus:border-blue-500 block w-full p-8 ring-4 ring-white focus:bg-blue-500
+                                            placeholder:italic placeholder-gray-400 placeholder:text-2xl placeholder:text-bold 
+                                            focus:outline-none focus:ring-blue-500 focus:placeholder-white shadow"
+                                    placeholder="Search for a Cooperative Society..." 
+                                    required>
+                                    
+                                <!-- X button -->
+                                {% comment %} <button 
+                                    type="reset" 
+                                    class="absolute top-7 right-2 text-white bg-transparent hover:text-blue-600 
+                                            p-1.5 ml-auto inline-block items-center align-middle">
+                                    <svg 
+                                        class="w-8 h-8 text-bold" 
+                                        fill="currentColor" 
+                                        viewBox="0 0 20 20" 
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path 
+                                            fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd">
+                                        </path>
+                                    </svg>
+                                </button>     {% endcomment %}
+                            </div>
+                
+                            <!-- Submit Query -->
+                            <button type="submit" 
+                                    class="px-9 py-6 ml-4 text-lg font-bold text-white bg-blue-700 rounded-none border ring-4 ring-blue-700
+                                            border border-4 border-blue-700 hover:border-blue-800 hover:bg-blue-800 focus:outline-none
+                                            hover:ring-blue-800 shadow-lg shadow-gray-500 shadow">
+                                <span 
+                                    class="font-bold text-xl text-white inline-flex items-center">
+                                    <svg 
+                                        class="w-9 h-9 font-bold" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path 
+                                            stroke-linecap="round" 
+                                            stroke-linejoin="round" 
+                                            stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </form>
+                        <!-- End of Form -->
+                    
+                    </div>
+                    <!-- End of Search bar container -->
+
+                </div>
+                <!-- End of Remove and Cancel buttons -->
+
+            </div>
+            <!-- End of outer modal container -->
+</div>

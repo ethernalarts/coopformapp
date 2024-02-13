@@ -1,0 +1,37 @@
+
+<div 
+    id="index-search-modal" 
+    tabindex="-1"
+    class="hidden fixed overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0
+            z-50 p-4 bg-opacity-50 backdrop-opacity-40 backdrop-invert md:inset-0 
+            h-[calc(100%-0rem)] max-h-full">
+        
+        <!-- X (Close) button -->
+        <button 
+            id="close-index-results" 
+            type="button" 
+            data-modal-toggle="popup-modal"
+            class="absolute top-4 right-3.5 text-white bg-gray-600 hover:bg-gray-800 
+                    rounded-sm text-sm p-1.5 ml-auto inline-flex items-center">
+            <svg 
+                class="w-10 h-10" 
+                fill="currentColor" 
+                viewBox="0 0 20 20" 
+                xmlns="http://www.w3.org/2000/svg">
+                <path 
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd">
+                </path>
+            </svg>
+        </button>
+    
+        <!-- Modal Container -->
+        <div 
+            id="index-search-results" 
+            class="w-full max-w-3xl md:max-w-4xl mx-auto  
+                   mt-24">
+
+        </div>
+        <!-- End of Modal Container -->
+</div>

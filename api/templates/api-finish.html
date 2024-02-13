@@ -1,0 +1,39 @@
+{% extends 'api-base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+  <title>Form submitted</title>
+{% endblock %}
+
+<!-- Navbar logo -->
+{% block logo %}
+	<a href="https://mbtc.edostate.gov.ng" class="flex items-center">
+		<img src="{% static 'img/mbtc-logo-gray-800.svg' %}" class="md:h-14 h-14" alt="MBTC-logo">
+	</a>	
+{% endblock %}
+
+{% block content %}
+  
+  <!-- Body Container -->
+  <div class="mx-auto mt-20 -mb-10 py-10 max-w-full md:max-w-4xl bg-white shadow-md rounded-sm px-8 md:px-12">    
+
+    <!-- Checkmark icon -->
+    <div class="mx-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
+          class="shadow-green-500 mx-auto text-green-700 w-20 h-20">
+        <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+      </svg>
+    </div>
+
+    <!-- Registration of Cooperatives -->
+    <div class="text-center mt-8">
+      <h2 class="text-[20px] md:text-xl font-bold text-green-700">
+          Thank you <span class="font-extrabold underline underline-offset-2">{{ society_name|upper }} COOPERATIVE SOCIETY.</span><br> 
+          <p class="mt-6">Your form has been submitted and your Cooperative Society registered.</p>
+      </h2>
+    </div>    
+
+  </div>
+  <!-- End - Body Container -->
+{% endblock %}
