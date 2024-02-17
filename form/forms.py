@@ -42,7 +42,7 @@ class createCoopForm(forms.ModelForm):
 class shareCapitalForm(createCoopForm):
     attach_share_capital = forms.FileField(
         label='Attach Share Capital',
-        widget=forms.ClearableFileInput(attrs={'multiple': True}),
+        widget=forms.ClearableFileInput(attrs={'allow_multiple_selected': True}),
         required=False
     )
 

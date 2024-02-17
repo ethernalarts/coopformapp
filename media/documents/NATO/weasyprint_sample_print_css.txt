@@ -1,0 +1,37 @@
+body {
+  font-family: sans-serif;
+}
+code {
+  font-family: monospace;
+  background: #ccc;
+  padding: 2px;
+}
+pre code {
+  display: block;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+@media print {
+  a::after {
+    content: " (" attr(href) ") ";
+  }
+  pre {
+    white-space: pre-wrap;
+  }
+  @page {
+    margin: 0.75in;
+    size: Letter;
+    @top-right {
+      content: counter(page);
+    }
+  }
+  @page :first {
+    @top-right {
+      content: "";
+    }
+  }
+}

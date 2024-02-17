@@ -422,11 +422,12 @@ def sendmail(request, context, template_name):
     try:
         msg.send()
 
-    except Exception as e:
-        messages.error(request, f'{e}')
+    except Exception:
+        # messages.error(request, f'{e}')
+        pass
 
-    else:
-        messages.success(request, 'Email was sent')
+    # else:
+    #     messages.success(request, 'Email was sent')
 
     # deactivate user after sending email
     u = User.objects.get(username=request.user.username)
