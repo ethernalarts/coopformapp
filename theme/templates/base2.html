@@ -121,10 +121,10 @@
 						<!-- Home -->
 						<li>
 							<a href="{% url 'index' %}"
-								class="{% active_link 'index' strict=True css_class="md:text-blue-700 md:border-blue-700 text-white bg-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white" %} 
+								class="{% active_link 'index' strict=True css_class="md:text-blue-700 md:border-blue-700 text-white bg-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white" %}
 										border-0 border-blue-700 md:bg-transparent md:hover:bg-transparent md:border-0 md:border-b-2  
 										md:border-transparent text-gray-700 md:hover:text-blue-700 md:hover:border-blue-700
-										block py-2 pb-1 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1">
+										block py-2 pb-1 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1 md:pb-1.5 rounded-sm">
 								
 								<!-- Home icon -->
 								<span class="inline-flex items-center">
@@ -144,7 +144,7 @@
 						<!-- Register form -->
 						<li>
 							<a href="{% url 'register' %}"
-									class="{% active_link 'register' css_class="md:text-blue-700 md:border-blue-700 text-white bg-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white" %} 
+									class="{% active_link 'register' css_class="md:text-blue-700 md:border-blue-800 text-white bg-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white" %}
 											border-0 border-blue-700 md:bg-transparent md:hover:bg-transparent md:border-0 md:border-b-2  
 											md:border-transparent text-gray-700 md:hover:text-blue-700 md:hover:border-blue-700
 											block py-2 pb-1 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1 rounded-sm">
@@ -162,7 +162,7 @@
 						<!-- Cooperative list -->
 						<li>
 							<a href="{% url 'allcooperatives' %}" 
-									class="{% active_link 'allcooperatives' css_class="md:text-blue-700 md:border-blue-700 text-white bg-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white" %} 
+									class="{% active_link 'allcooperatives' css_class="md:text-blue-700 md:border-blue-800 text-white bg-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white" %}
 											border-0 border-blue-700 md:bg-transparent md:hover:bg-transparent md:border-b-2  
 											md:border-transparent text-gray-700 md:hover:text-blue-700 md:hover:border-blue-700
 											block py-2 pb-1 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1 rounded-sm">
@@ -185,9 +185,9 @@
 									<button type="button"
 										class="{% active_link 'logout' %} 
 												border-0 border-red-600 text-red-600 hover:text-red-700 md:hover:text-red-600 md:hover:border-b-2
-												md:border-0 md:border-tranparent md:rounded-sm block py-2 pr-4 pl-3 text-left
-												bg-transparent md:text-red-600 cursor:pointer md:py-1 w-full md:px-2 md:bg-tranparent
-												md:hover:border-red-600 md:hover:bg-tranparent">
+												md:border-0 md:border-transparent md:rounded-sm block py-2 pr-4 pl-3 text-left
+												bg-transparent md:text-red-600 cursor:pointer md:py-1 md:pb-1.5 w-full md:px-2 md:bg-transparent
+												md:hover:border-red-600 md:hover:bg-transparent">
 
 										<span class="inline-flex items-center">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
@@ -203,7 +203,7 @@
 							{% else %}
 								<li>
 									<a href="{% url 'login' %}" 
-											class="{% active_link 'login' css_class="md:text-blue-700 md:border-blue-700 text-slate-50 bg-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white" %} 
+											class="{% active_link 'login' css_class="md:text-blue-700 md:border-blue-700 text-slate-50 bg-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white" %}
 													border-0 border-blue-700 md:bg-transparent md:hover:bg-transparent md:border-0 md:border-b-2  
 													md:border-transparent text-gray-700 md:hover:text-blue-700 md:hover:border-blue-700
 													block py-2 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1 md:mt-0.5 rounded-sm">
