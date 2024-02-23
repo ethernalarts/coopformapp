@@ -13,7 +13,7 @@ module.exports = {
       extend:{
         backgroundImage: {
           'index': "url(../img/trees.jpg)",
-          'templates': "url(../img/spencer.jpg)",
+          // 'templates': "url(../img/spencer.jpg)",
         },
       },
       screens: {

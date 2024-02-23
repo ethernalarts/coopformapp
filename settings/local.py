@@ -1,8 +1,7 @@
 from .base import *
 import dj_database_url
 
-
-DEBUG = True
+DEBUG = env.bool("ANYTHING", default=False)
 
 DATABASES = {
     'default': dj_database_url.parse(
