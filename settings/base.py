@@ -66,8 +66,8 @@ INSTALLED_APPS = [
     'api',
 ]
 
-# WSGI_APPLICATION = 'coopformapp.wsgi.application'
-ASGI_APPLICATION = 'coopformapp.asgi.application'
+WSGI_APPLICATION = 'coopformapp.wsgi.application'
+# ASGI_APPLICATION = 'coopformapp.asgi.application'
 
 TAILWIND_APP_NAME = 'theme'
 TAILWIND_CSS_PATH = 'css/dist/styles.css'
