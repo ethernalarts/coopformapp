@@ -6,7 +6,7 @@ DEBUG = env.bool("ANYTHING", default=False)
 
 DATABASES = {
     'default': dj_database_url.parse(
-        env('DATABASE_URL'),
+        env('DATABASE_LOCAL'),
         conn_max_age=600,
         conn_health_checks=True,
     ),
