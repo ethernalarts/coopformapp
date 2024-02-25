@@ -1276,6 +1276,10 @@ select {
   place-content: center;
 }
 
+.place-items-center {
+  place-items: center;
+}
+
 .content-center {
   align-content: center;
 }
