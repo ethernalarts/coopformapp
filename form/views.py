@@ -1,11 +1,10 @@
 
 from wkhtmltopdf.views import PDFTemplateView
 import contextlib
-import logging
+# import logging
 
 from django.conf import settings
 from django.core import mail
-from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
@@ -88,7 +87,7 @@ class CoopLogoutView(LogoutView):
 # Create New Form View
 class RegisterView(CreateView):
     model = CoopForm
-    form_class = shareCapitalForm
+    form_class = ShareCapitalForm
     context_object_name = 'form'
     template_name = 'register.html'
 
@@ -109,7 +108,7 @@ class RegisterView(CreateView):
                     self.request, 'Please attach share capital files or select a different option')
                 return self.form_invalid(form)
 
-        # check if "Yes" is selected and a copy of bye laws is attached
+        # check if "Yes" is selected and a copy of bye-laws is attached
         if self.request.POST.get('have_bye_laws') == 'Yes':
             if not self.request.FILES.get('attach_bye_laws'):
                 messages.error(
@@ -134,7 +133,7 @@ class RegisterView(CreateView):
 # UpdateForm View
 class updateFormView(LoginRequiredMixin, UpdateView):
     model = CoopForm
-    form_class = shareCapitalForm
+    form_class = ShareCapitalForm
     context_object_name = 'obj'
     template_name = 'updateform.html'
 
@@ -150,10 +149,10 @@ class updateFormView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(updateFormView, self).get_context_data(**kwargs)
         if self.request.POST:
-            context['form'] = shareCapitalForm(
+            context['form'] = ShareCapitalForm(
                 self.request.POST, self.request.FILES, instance=self.object)
         else:
-            context['form'] = shareCapitalForm(instance=self.object)
+            context['form'] = ShareCapitalForm(instance=self.object)
         context['sharefiles'] = self.get_share_capital_files()
         return context
 
@@ -189,7 +188,7 @@ class updateFormView(LoginRequiredMixin, UpdateView):
                     self.request, 'Please attach share capital files (5a) or choose a different option')
                 return self.form_invalid(form)
 
-        # check if yes is selected and a copy of bye laws is attached
+        # check if yes is selected and a copy of bye-laws is attached
         if self.request.POST.get('have_bye_laws') == 'Yes':
             if not self.object.attach_bye_laws and not self.request.FILES.get('attach_bye_laws'):
                 messages.error(
@@ -216,7 +215,7 @@ class updateFormView(LoginRequiredMixin, UpdateView):
 # Form Details View
 class formDetailsView(DetailView):
     model = CoopForm
-    form_class = shareCapitalForm
+    form_class = ShareCapitalForm
     context_object_name = 'form'
 
     def get_object(self):
@@ -227,7 +226,7 @@ class formDetailsView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(formDetailsView, self).get_context_data(**kwargs)
-        context['tag'] = shareCapitalForm
+        context['tag'] = ShareCapitalForm
         context['sharefiles'] = self.get_share_capital_files()
         return context
 
