@@ -94,8 +94,9 @@
             <!-- Notification -->
             {% if perms.form.view_finish %}
                 <div class="mt-10 px-4 ">
-                    <p class="mx-auto text-lg text-center w-full md:w-[800px] font-bold text-green-700">
-                        Click on the "Download" button below to download this page for your reference. Make corrections with the "Edit" button  
+                    <p class="mx-auto text-lg text-center w-full md:w-auto font-bold text-green-700">
+                        Click on the "Download" button below to download this page for your reference.
+                        Make corrections with the "Edit" button
                         or click "Finish" to complete the registration
                     </p>
                 </div>
@@ -721,13 +722,13 @@
 
             <!-- Submit, Edit, Download and Delete buttons -->            
             <div 
-                class="mt-20 mb-2 mx-auto w-auto lg:w-[950px] grid flex grid-cols-2 gap-4 
+                class="mt-20 mb-2 m-auto w-full flex #grid #grid-rows-2 #grid-cols-4 gap-4
                        md:flex md:flex-row md:space-x-2 items-center md:space-y-0
-                       justify-evenly"
+                       justify-center place-items-center"
             >
                 
                 <!-- Finish -->
-                {% if perms.form.view_finish %}
+<!--                {% if perms.form.view_finish %}-->
                     <a href="{% url 'finish' form.id %}" class="w-full">
                         <button type="button" 
                                 class="w-full flex justify-center py-3 px-4 border border-transparent shadow-md
@@ -744,10 +745,10 @@
                             Finish
                         </button>                    
                     </a>                
-                {% endif %}
+<!--                {% endif %}-->
                 
                 <!-- Edit -->
-                {% if request.user.is_staff or perms.form.view_finish %}
+                {% if request.user.is_staff %}
                     <a href="{% url 'updateform' form.id %}" class="w-full">
                         <button type="button" 
                                 class="w-full flex justify-center py-3 px-4 border border-transparent shadow-md
