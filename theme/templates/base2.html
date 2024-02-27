@@ -61,7 +61,8 @@
 
 	<!-- Body -->
 	<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-		class="relative max-h-screen bg-index bg-no-repeat bg-cover bg-center bg-fixed font-sans p-4 mx-auto">
+		class="min-h-screen justify-between bg-index bg-no-repeat bg-cover
+				bg-center bg-fixed font-sans p-4 mx-auto">
         
 		<!-- Navbar -->
 		<nav class="bg-white opacity-95 w-full rounded-sm drop-shadow-lg px-4 pl-4 py-3">
@@ -335,7 +336,7 @@
 	<!-- End Body -->
 
 	<!-- Footer -->
-	<footer class="mt-28 py-4 text-white mx-auto">
+	<footer class="sticky top-[100vh] mb-auto py-0 text-white mx-auto">
 
 		<!-- Copyright, Address and Social Media container -->
 		<div class="grid grid-cols-1 grid-row-3 gap-x-4 gap-y-7 md:grid-cols-3 md:grid-rows-1

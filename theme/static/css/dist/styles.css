@@ -771,6 +771,10 @@ select {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .inset-y-0 {
   top: 0px;
   bottom: 0px;
@@ -826,6 +830,10 @@ select {
 
 .top-7 {
   top: 1.75rem;
+}
+
+.top-\[100vh\] {
+  top: 100vh;
 }
 
 .z-0 {
@@ -923,8 +931,16 @@ select {
   margin-bottom: 3rem;
 }
 
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
 }
 
 .mb-4 {
@@ -937,6 +953,10 @@ select {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mb-auto {
+  margin-bottom: auto;
 }
 
 .ml-1 {
@@ -979,6 +999,10 @@ select {
   margin-top: 3.5rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -989,10 +1013,6 @@ select {
 
 .mt-24 {
   margin-top: 6rem;
-}
-
-.mt-28 {
-  margin-top: 7rem;
 }
 
 .mt-4 {
@@ -1017,10 +1037,6 @@ select {
 
 .mt-\[3px\] {
   margin-top: 3px;
-}
-
-.mb-3 {
-  margin-bottom: 0.75rem;
 }
 
 .block {
@@ -1107,8 +1123,8 @@ select {
   max-height: 100%;
 }
 
-.max-h-screen {
-  max-height: 100vh;
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-10 {
@@ -1157,6 +1173,10 @@ select {
 
 .w-9 {
   width: 2.25rem;
+}
+
+.w-96 {
+  width: 24rem;
 }
 
 .w-\[320px\] {
@@ -1645,11 +1665,6 @@ select {
   padding-right: 0.5rem;
 }
 
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1673,6 +1688,11 @@ select {
 .px-9 {
   padding-left: 2.25rem;
   padding-right: 2.25rem;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .py-1 {
@@ -2517,6 +2537,14 @@ select {
     margin-bottom: 0.5rem;
   }
 
+  .md\:mb-24 {
+    margin-bottom: 6rem;
+  }
+
+  .md\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
   .md\:ml-auto {
     margin-left: auto;
   }
@@ -2779,16 +2807,16 @@ select {
     padding-bottom: 1rem;
   }
 
-  .md\:pt-8 {
-    padding-top: 2rem;
-  }
-
   .md\:pb-8 {
     padding-bottom: 2rem;
   }
 
   .md\:pt-6 {
     padding-top: 1.5rem;
+  }
+
+  .md\:pt-8 {
+    padding-top: 2rem;
   }
 
   .md\:text-left {

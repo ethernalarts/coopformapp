@@ -292,7 +292,7 @@ class searchQueryView(ListView):
 class htmxSearchView(ListView):
     model = CoopForm
     context_object_name = 'searchresults'
-    paginate_by = 4
+    paginate_by = 2
 
     def get_template_names(self):
         if self.request.GET.get("page"):
@@ -369,7 +369,7 @@ def delete_form(request, pk):
 
 # test
 def test(request):
-    return HttpResponse(render(request, 'finish.html'))
+    return HttpResponse(render(request, 'notif-email.html'))
 
 
 # finish view

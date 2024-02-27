@@ -1,32 +1,36 @@
-{% extends "base2.html" %} {% load static %} {% block title %}
-<title>List of all Cooperatives</title>
-{% endblock %} {% block logo %}
-<!-- Navbar logo -->
-<a href="https://mbtc.edostate.gov.ng" class="flex items-center">
-  <img
-    src="{% static 'img/mbtc-logo-gray-800.svg' %}"
-    class="h-14"
-    alt="MBTC-logo"
-  />
-</a>
-{% endblock %} 
+{% extends "base2.html" %}
+{% load static %}
+
+{% block title %}
+    <title>List of all Cooperatives</title>
+{% endblock %}
+
+{% block logo %}
+    <!-- Navbar logo -->
+    <a href="https://mbtc.edostate.gov.ng" class="flex items-center">
+        <img
+              src="{% static 'img/mbtc-logo-gray-800.svg' %}"
+              class="h-14"
+              alt="MBTC-logo"
+        />
+    </a>
+{% endblock %}
 
 {% block content %}
-<!-- Search bar -->
-{% include 'snippets/searchbar.html' %}
+    <!-- Search bar -->
+    {% include 'snippets/searchbar.html' %}
 
-<!-- Outer Container -->
-<div id="searchresults" class="max-w-3xl mx-auto mt-10">
-  <!-- List of all Cooperatives -->
-  <div
-    id="cooperatives-list"
-    class="p-8 pb-0 md:-mb-12 bg-white rounded-sm mx-auto shadow-lg"
-  >
-    {% include 'htmx_cooperatives_list.html' %}
-  </div>
-  <!-- End of Cooperatives list -->
+    <!-- Outer Container -->
+    <div id="searchresults" class="max-w-3xl mx-auto mt-8 mb-16 md:mb-24">
 
-  <!-- End of Outer Container -->
-</div>
+        <!-- List of all Cooperatives -->
+        <div id="cooperatives-list" class="p-8 pb-4 md:mt-8 bg-white rounded-sm mx-auto shadow-lg"
+        >
+            {% include 'htmx_cooperatives_list.html' %}
+        </div>
+        <!-- End of Cooperatives list -->
+
+    <!-- End of Outer Container -->
+    </div>
 {% endblock %}
 <!-- End of block content -->
