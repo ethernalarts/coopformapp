@@ -899,10 +899,6 @@ select {
   margin-bottom: -3rem;
 }
 
-.-mb-14 {
-  margin-bottom: -3.5rem;
-}
-
 .-mb-2 {
   margin-bottom: -0.5rem;
 }
@@ -919,8 +915,8 @@ select {
   margin-top: -0.25rem;
 }
 
-.-mt-12 {
-  margin-top: -3rem;
+.-mt-8 {
+  margin-top: -2rem;
 }
 
 .mb-10 {
@@ -929,6 +925,10 @@ select {
 
 .mb-12 {
   margin-bottom: 3rem;
+}
+
+.mb-14 {
+  margin-bottom: 3.5rem;
 }
 
 .mb-16 {
@@ -1037,38 +1037,6 @@ select {
 
 .mt-\[3px\] {
   margin-top: 3px;
-}
-
-.mt-0 {
-  margin-top: 0px;
-}
-
-.-mt-8 {
-  margin-top: -2rem;
-}
-
-.-mt-4 {
-  margin-top: -1rem;
-}
-
-.-mb-8 {
-  margin-bottom: -2rem;
-}
-
-.-mt-5 {
-  margin-top: -1.25rem;
-}
-
-.-mb-5 {
-  margin-bottom: -1.25rem;
-}
-
-.-mb-6 {
-  margin-bottom: -1.5rem;
-}
-
-.mb-14 {
-  margin-bottom: 3.5rem;
 }
 
 .block {
