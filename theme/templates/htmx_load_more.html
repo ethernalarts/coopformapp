@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="pb-0 -mt-12 w-full max-w-3xl md:max-w-4xl lg:max-w-5xl bg-white rounded-sm mx-auto">
+<div class="pb-0 -mt-8 w-full max-w-3xl md:max-w-4xl lg:max-w-5xl bg-white rounded-sm mx-auto">
 
     <!-- Search Results -->
     <div class="flow-root mt-8">
@@ -79,11 +79,11 @@
         </ul>
     </div>
     
-    {% with searchresults=page_obj %}
-        {% if is_paginated %}
+    {% if is_paginated %}
+        {% with searchresults=page_obj %}
             <div id="load-more">
                 {% if page_obj.has_next %}
-                    <div class="flex justify-center mt-8">
+                    <div class="flex justify-center mt-8 pb-6">
                         <button
                             type="button"
                             class="items-center px-4 py-2 border border-2 border-blue-600 rounded-sm 
@@ -100,6 +100,6 @@
                     </div>
                 {% endif %}
             </div>
-        {% endif %}
-    {% endwith %}
+        {% endwith %}
+    {% endif %}
 </div>

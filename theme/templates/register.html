@@ -105,12 +105,12 @@
                 <div>
 
                     <!-- HEADER - SOCIETY DETAILS -->
-                    <h2 class="mt-14 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-14 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         1.  Cooperative Society's Details
                     </h2>
 
                     <!-- Cooperative Society Details -->
-                    <div class="grid gap-6 mt-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 pt-4 pb-6 md:px-6 md:pb-8 bg-stone-50
+                    <div class="grid gap-6 mt-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 md:px-6 md:pb-8 bg-stone-50
                                 border border-1 border-gray-300 shadow-md">
 
                         <!-- Society Name -->
@@ -215,7 +215,7 @@
                 <div>
 
                     <!-- HEADER - SOCIETY'S LOGO -->
-                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         2.  Society's Logo
                     </h2>
 
@@ -245,7 +245,7 @@
                 <div>
 
                     <!-- HEADER - CONTACT PERSONS -->
-                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         3.  Contact Persons
                     </h2>
 
@@ -395,12 +395,12 @@
                 <div>
 
                     <!-- HEADER - PURPOSE OF REGISTRATION -->
-                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         4.  Purpose of Registration
                     </h2>
 
                     <!-- Purpose of Registration -->
-                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1 border-gray-300 shadow-md">
 
                         <!-- First Purpose -->
                         <div>
@@ -456,12 +456,13 @@
                 <div>
 
                     <!-- HEADER -->
-                    <legend class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <legend class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         5.  Nature of Registration Sought
                     </legend>
 
                     <!-- Fields -->
-                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1
+                                    border-gray-300 shadow-md">
                         {% for radio in form.nature_registration %}
                             {% if radio.choice_label == 'Limited Liability' %}
                                 <div class="flex inline-flex">                                        
@@ -495,12 +496,13 @@
                 <div id="attach_share_capital" class="hidden">
 
                     <!-- HEADER - ATTACH SHARE CAPITAL -->
-                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         5a. Attach evidence of share capital/contribution by each member
                     </h2>
 
                     <!-- Attach Share Capital -->
-                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-4 pb-6 pt-4 bg-stone-50 border
+                                border-1 border-gray-300 shadow-md">
 
                         <!-- Attach Share Capital -->
                         <div>
@@ -524,12 +526,13 @@
                 <div>
 
                     <!-- HEADER -->
-                    <legend class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <legend class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         6.  Dates of Meeting for Society Formation (Attach minutes of two meetings)
                     </legend>
 
                     <!-- Attach minutes -->
-                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-2 lg:grid-cols-2 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-2 lg:grid-cols-2 px-4 pb-6 pt-4 bg-stone-50 border
+                                border-1 border-gray-300 shadow-md">
 
                         <!-- Date of first meeting -->
                         <div>
@@ -597,12 +600,13 @@
                 <div>
 
                     <!-- HEADER -->
-                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         7.  Ten (10) Members in the Society
                     </h2>
 
                     <!-- 10 Members -->
-                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1
+                                border-gray-300 shadow-md">
 
                         <!-- President's Name -->
                         <div>
@@ -1075,12 +1079,13 @@
                 <div>
 
                     <!-- HEADER -->
-                    <h2 class="mt-20 text-[18px] font-bold p-2 bg-green-700 text-white">
+                    <h2 class="mt-20 text-[18px] font-bold p-2 px-4 bg-green-700 text-white">
                         8. Four (4) Trustees
                     </h2>
 
                     <!-- 10 Members -->
-                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1
+                                border-gray-300 shadow-md">
 
                         <!-- First Trustee's Name -->
                         <div>
@@ -1285,7 +1290,8 @@
                     </h2>
 
                     <!-- Fields -->
-                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1
+                                    border-gray-300 shadow-md">
                         {% for radio in form.have_bye_laws %}
                             {% if radio.choice_label == 'Yes' %}
                                 <div class="flex inline-flex">                                        
@@ -1322,7 +1328,7 @@
 
 
                     <!-- Attach a copy of your Bye-Laws -->
-                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-6 pt-4 pb-8 bg-stone-50 border border-1 border-gray-300 shadow-md">                            
+                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-4 pb-6 pt-4 bg-stone-50 border border-1 border-gray-300 shadow-md">
 
                         <!-- Attach a copy of your Bye-Laws -->
                         <div>

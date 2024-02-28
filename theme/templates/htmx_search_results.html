@@ -1,9 +1,9 @@
 {% load static %}
 
-<div class="p-8 pb-4 mb-10 bg-white rounded-sm mx-auto shadow-lg">
+<div class="p-8 pb-0 mb-10 bg-white rounded-sm mx-auto shadow-lg">
 
     <!-- Result summary -->
-    <div class="mx-auto">
+    <div class="mx-auto -mb-2">
         <h5 class="text-center text-[25px] md:text-3xl font-bold text-gray-900">
             Found {{ count_query }} result(s) for "{{ query }}"
         </h5>
@@ -76,7 +76,7 @@
                 {% else %}
                     <div class="text-center justify-center">
                         <h5 class="text-2xl font-medium text-gray-900 py-6">
-                            <em>No Record found</em>
+                            <em>No Record(s) found</em>
                         </h5>
                     </div>
             {% endif %}
@@ -84,11 +84,11 @@
     </div>
 
     
-    {% with searchresults=page_obj %}
-        {% if is_paginated %}
+    {% if is_paginated %}
+        {% with searchresults=page_obj %}
             <div id="load-more">
                 {% if page_obj.has_next %}
-                    <div class="flex justify-center mt-8 mb-4">
+                    <div class="flex justify-center mt-8 pb-6">
                         <button
                             type="button"
                             class="items-center px-4 py-2 border border-2 border-blue-600 rounded-sm 
@@ -104,6 +104,6 @@
                     </div>
                 {% endif %}
             </div>
-        {% endif %}
-    {% endwith %}
+        {% endwith %}
+    {% endif %}
 </div>
