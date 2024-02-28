@@ -44,24 +44,31 @@
     <!-- Outer Logo Container -->
     <div class="mt-4 md:mt-8 mb-4 items-center px-4 py-6 mx-auto bg-white lg:max-w-6xl rounded-sm shadow-md">
 
-        <!-- Logo Container -->
-        <div class="mx-auto md:p-4 w-full md:w-[600px] lg:w-[800px]">
+        <!-- Image Header Inner Container -->
+        <figure class="h-full w-full">
 
-            <!-- Top Logo -->
-            <img src="{% static 'img/coopform-logo-1.svg' %}" class="h-full w-full" alt="MBTC-logo">
-        </div>
+            <!-- Small Screen Image Header -->
+            <div class="md:hidden lg:hidden sm:block xs:block py-0 mx-auto w-60">
+                <img src="{% static 'img/mbtc-logo-gray-800.svg' %}" class="h-full w-full" alt="MBTC-logo">
+            </div>
+
+            <!-- Medium and Large Screen Image Header -->
+            <div class="xs:hidden sm:hidden md:block lg:block mx-auto md:p-4 md:w-[600px] lg:w-[800px]">
+                <img src="{% static 'img/coopform-logo-1.svg' %}" class="h-full w-full" alt="MBTC-EDSG-logo">
+            </div>
+        </figure>
     </div>
 
     <!-- Body Container -->
     <div 
         id="registerform" 
         class="mx-auto mt-4 md:mt-8 mb-16 md:mb-24 pt-4 md:pt-6 md:pt-8 pb-8 max-w-full md:max-w-6xl
-                bg-white shadow-md rounded-sm px-4 md:px-12">
+               bg-white shadow-md rounded-sm px-4 md:px-12">
 
         <!-- Department of Cooperatives -->
         <div>
-            <h2 class="mt-4 text-center mx-auto text-xl md:text-[24px] w-96
-                        md:w-[500px] py-3 px-4 bg-green-700 text-white font-extrabold">
+            <h2 class="mt-4 text-center mx-auto text-xl md:text-[24px] w-auto max-w-96
+                       md:w-[500px] py-3 px-4 bg-green-700 text-white font-extrabold">
                 DEPARTMENT OF COOPERATIVES
             </h2>
         </div>
@@ -400,7 +407,8 @@
                     </h2>
 
                     <!-- Purpose of Registration -->
-                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1 border-gray-300 shadow-md">
+                    <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1
+                                md:px-6 md:pb-8 border-gray-300 shadow-md">
 
                         <!-- First Purpose -->
                         <div>
@@ -462,7 +470,7 @@
 
                     <!-- Fields -->
                     <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1
-                                    border-gray-300 shadow-md">
+                                    md:px-6 md:pb-8 border-gray-300 shadow-md">
                         {% for radio in form.nature_registration %}
                             {% if radio.choice_label == 'Limited Liability' %}
                                 <div class="flex inline-flex">                                        
@@ -502,7 +510,7 @@
 
                     <!-- Attach Share Capital -->
                     <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-4 pb-6 pt-4 bg-stone-50 border
-                                border-1 border-gray-300 shadow-md">
+                                md:px-6 md:pb-8 border-1 border-gray-300 shadow-md">
 
                         <!-- Attach Share Capital -->
                         <div>
@@ -532,7 +540,7 @@
 
                     <!-- Attach minutes -->
                     <div class="grid gap-6 mt-1 mx-auto md:grid-cols-2 lg:grid-cols-2 px-4 pb-6 pt-4 bg-stone-50 border
-                                border-1 border-gray-300 shadow-md">
+                                md:px-6 md:pb-8 border-1 border-gray-300 shadow-md">
 
                         <!-- Date of first meeting -->
                         <div>
@@ -606,7 +614,7 @@
 
                     <!-- 10 Members -->
                     <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1
-                                border-gray-300 shadow-md">
+                                md:px-6 md:pb-8 border-gray-300 shadow-md">
 
                         <!-- President's Name -->
                         <div>
@@ -1085,7 +1093,7 @@
 
                     <!-- 10 Members -->
                     <div class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-3 px-4 pb-6 pt-4 bg-stone-50 border border-1
-                                border-gray-300 shadow-md">
+                                md:px-6 md:pb-8 border-gray-300 shadow-md">
 
                         <!-- First Trustee's Name -->
                         <div>
@@ -1291,7 +1299,7 @@
 
                     <!-- Fields -->
                     <fieldset class="grid gap-6 mt-1 md:grid-cols-2 lg:grid-cols-2 p-4 pb-6 bg-stone-50 border border-1
-                                    border-gray-300 shadow-md">
+                                    md:px-6 md:pb-8 border-gray-300 shadow-md">
                         {% for radio in form.have_bye_laws %}
                             {% if radio.choice_label == 'Yes' %}
                                 <div class="flex inline-flex">                                        
@@ -1328,7 +1336,8 @@
 
 
                     <!-- Attach a copy of your Bye-Laws -->
-                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-4 pb-6 pt-4 bg-stone-50 border border-1 border-gray-300 shadow-md">
+                    <div class="grid gap-6 mt-1 mx-auto md:grid-cols-1 lg:grid-cols-1 px-4 pb-6 pt-4 md:px-6 md:pb-8
+                                bg-stone-50 border border-1 border-gray-300 shadow-md">
 
                         <!-- Attach a copy of your Bye-Laws -->
                         <div>

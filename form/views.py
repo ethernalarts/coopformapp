@@ -292,7 +292,7 @@ class searchQueryView(ListView):
 class htmxSearchView(ListView):
     model = CoopForm
     context_object_name = 'searchresults'
-    paginate_by = 2
+    paginate_by = 4
 
     def get_template_names(self):
         if self.request.GET.get("page"):
