@@ -17,12 +17,12 @@ module.exports = {
         },
       },
       screens: {
-        xs: '380px', // 640px
-        sm: '640px', // 640px
-        md: '768px', // 768px
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
+        xs: '449px', // 380px
+        sm: '709px', // 640px
+        md: '837px', // 768px
+        lg: '1093px', //1024px
+        xl: '1280px', //1280px
+        '2xl': '1536px', //1536px
       },
       colors: ({ colors }) => ({
         inherit: colors.inherit,

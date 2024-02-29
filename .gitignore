@@ -1,3 +1,4 @@
 .env
 .coopvenv
+.idea
 __pycache__/

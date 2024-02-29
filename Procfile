@@ -1,1 +1,0 @@
-web: gunicorn coopformapp.wsgi --log-file -
