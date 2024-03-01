@@ -737,7 +737,7 @@
             >
                 
                 <!-- Finish -->
-<!--                {% if perms.form.view_finish %}-->
+                {% if perms.form.view_finish %}
                     <a href="{% url 'finish' form.id %}" class="w-full">
                         <button type="button" 
                                 class="w-full flex justify-center py-3 px-4 border border-transparent shadow-md
@@ -754,10 +754,10 @@
                             Finish
                         </button>                    
                     </a>                
-<!--                {% endif %}-->
+                {% endif %}
                 
                 <!-- Edit -->
-                {% if request.user.is_staff %}
+                {% if request.user.is_staff or perms.form.view_finish %}
                     <a href="{% url 'updateform' form.id %}" class="w-full">
                         <button type="button" 
                                 class="w-full flex justify-center py-3 px-4 border border-transparent shadow-md

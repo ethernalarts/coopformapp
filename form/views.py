@@ -85,7 +85,7 @@ class CoopLogoutView(LogoutView):
 
 
 # Create New Form View
-class RegisterView(CreateView):
+class RegisterView(LoginRequiredMixin, CreateView):
     model = CoopForm
     form_class = ShareCapitalForm
     context_object_name = 'form'

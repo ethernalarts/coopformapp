@@ -10,12 +10,12 @@ module.exports = {
     presets: [],
     darkMode: 'media', // or 'class'
     theme: {
-      extend:{
-        backgroundImage: {
-          'index': "url(../img/trees.jpg)",
-          // 'templates': "url(../img/spencer.jpg)",
-        },
-      },
+	  extend:{
+	    backgroundImage: {
+	      'index': "url(../img/trees.jpg)",
+	      // 'templates': "url(../img/spencer.jpg)",
+	    },
+	  },
       screens: {
         xs: '449px', // 380px
         sm: '709px', // 640px

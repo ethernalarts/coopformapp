@@ -1,4 +1,5 @@
 .env
 .coopvenv
 .idea
+.gitignore
 __pycache__/
