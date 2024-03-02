@@ -14,25 +14,6 @@
 {% endblock %}
 
 {% block content %}
-    
-    <style>
-        @media only screen and (max-width: 600px) {
-
-            figure .img {
-                src: url("{% static 'img/mbtc-logo-thin.svg' %}");
-            }
-
-            figure {
-                container-type: inline-size;
-            }
-
-            @container (width < 768px) {
-                .img {
-                    background-image: url("{% static 'img/mbtc-logo-thin.svg' %}")
-                }
-            }
-        }
-    </style>
 
     <!-- Progress bar -->
     <div class="progress-bar"></div>
