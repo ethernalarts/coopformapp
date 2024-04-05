@@ -26,12 +26,6 @@
 		{% tailwind_css %}
 
 		<style>
-			@media only screen and (max-width: 600px) {
-				figure div img {
-					src: url("{% static 'img/mbtc-logo-thin.svg' %}");
-				}
-			}
-
 			.progress-bar {				
 				height: 0.3rem;
 				background: rgb(132 204 22);
@@ -61,8 +55,7 @@
 
 	<!-- Body -->
 	<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-		class="min-h-screen justify-between bg-index bg-no-repeat bg-cover
-				bg-center bg-fixed font-sans p-4 mx-auto">
+		class="min-h-screen justify-between bg-index bg-no-repeat bg-cover bg-center bg-fixed font-sans p-4 mx-auto">
         
 		<!-- Navbar -->
 		<nav class="bg-white opacity-95 w-full rounded-sm drop-shadow-lg px-4 pl-4 py-3">
@@ -184,11 +177,11 @@
 							<li>
 								<a id="openmodal">
 									<button type="button"
-										class="{% active_link 'logout' %} 
-												border-0 border-red-600 text-red-600 hover:text-red-700 md:hover:text-red-600 md:hover:border-b-2
-												md:border-0 md:border-transparent md:rounded-sm block py-2 pr-4 pl-3 text-left
-												bg-transparent md:text-red-600 cursor:pointer md:py-1 md:pb-1.5 w-full md:px-2 md:bg-transparent
-												md:hover:border-red-600 md:hover:bg-transparent">
+											class="{% active_link 'logout' %}
+													border-0 border-red-600 text-red-600 hover:text-red-700 md:hover:text-red-600 md:hover:border-b-2
+													md:border-0 md:border-transparent md:rounded-sm block py-2 pr-4 pl-3 text-left
+													bg-transparent md:text-red-600 cursor:pointer md:py-1 md:pb-1.5 w-full md:px-2 md:bg-transparent
+													md:hover:border-red-600 md:hover:bg-transparent">
 
 										<span class="inline-flex items-center">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
@@ -204,10 +197,10 @@
 							{% else %}
 								<li>
 									<a href="{% url 'login' %}" 
-											class="{% active_link 'login' css_class="md:text-blue-700 md:border-blue-700 text-slate-50 bg-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white" %}
-													border-0 border-blue-700 md:bg-transparent md:hover:bg-transparent md:border-0 md:border-b-2  
-													md:border-transparent text-gray-700 md:hover:text-blue-700 md:hover:border-blue-700
-													block py-2 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1 md:mt-0.5 rounded-sm">
+										class="{% active_link 'login' css_class="md:text-blue-700 md:border-blue-700 text-slate-50 bg-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white" %}
+												border-0 border-blue-700 md:bg-transparent md:hover:bg-transparent md:border-0 md:border-b-2
+												md:border-transparent text-gray-700 md:hover:text-blue-700 md:hover:border-blue-700
+												block py-2 pr-4 pl-3 hover:text-blue-700 md:px-2 md:py-1 md:mt-0.5 rounded-sm">
 
 										<span class="inline-flex items-center">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
@@ -230,8 +223,9 @@
 				<!-- Success Messages -->			
 				{% if message.tags == 'success' %}
 					<div id="toast-success" 
-						class="error-message flex items-center w-full max-w-lg p-4 rounded-sm drop-shadow-xl 
-								mx-auto text-gray-700 bg-white mt-6 md:mb-2" role="alert">
+						class="error-message flex flex-row items-center w-full max-w-lg p-4 rounded-sm drop-shadow-xl
+								mx-auto text-gray-700 bg-white mt-6 md:mb-2 justify-between space-x-8 justify-evenly"
+						 role="alert">
 						
 						<!-- checkmark with green background -->
 						<div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 bg-green-700 text-white">
@@ -257,8 +251,9 @@
 				<!-- Error Messages -->
 				{% if message.tags == 'error' %}
 					<div id="toast-error" 
-						class="error-message flex items-center w-full max-w-lg p-4 rounded-sm drop-shadow-xl 
-								mx-auto text-white bg-red-700 mt-6 md:mb-2" role="alert">
+						class="error-message flex flex-row items-center w-full max-w-lg p-4 rounded-sm drop-shadow-xl
+								mx-auto text-white bg-red-700 mt-6 md:mb-2 space-x-8 justify-between justify-evenly"
+						 role="alert">
 						
 						<!-- X mark with white background -->
 						<div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 bg-white text-red-700">

@@ -102,7 +102,7 @@
         </div>
     
         <!-- Form -->
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Form Sections and Fields -->
@@ -1375,14 +1375,15 @@
                 </button>
 
                 <!-- Clear form -->
-                <button type="reset" 
-                        class="group relative w-full flex items-center mx-auto justify-center mt-6 mb-4 py-3 px-4 border border-red-700 
-                                text-md font-medium rounded-sm text-white bg-red-700 hover:bg-red-600 focus:outline-none 
-                                focus:ring-4 focus:ring-offset-2 focus:ring-red-500 hover:border-red-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
-                            fill="currentColor" class="-ml-1 mr-2 h-5 w-5 text-white">
-                            <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
-                        </svg>                                      
+                <button
+                    type="reset"
+                    class="group relative w-full flex items-center mx-auto justify-center mt-6 mb-4 py-3 px-4 border border-red-700
+                            text-md font-medium rounded-sm text-white bg-red-700 hover:bg-red-600 focus:outline-none
+                            focus:ring-4 focus:ring-offset-2 focus:ring-red-500 hover:border-red-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="currentColor" class="-ml-1 mr-2 h-5 w-5 text-white">
+                        <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
+                    </svg>
                     Reset
                 </button>
             </div>
